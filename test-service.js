@@ -1,4 +1,4 @@
-angular.module('testApp')
+angular.module('mainApp')
     .factory('testFactory', [ '$rootScope','$http', '$filter', function($rootScope, $http, $filter) {
 
     	var testFactory = {};

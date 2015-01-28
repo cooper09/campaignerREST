@@ -1,0 +1,101 @@
+html *
+{
+   font-size: 1em;
+   color: #000;
+   font-family: Helvetica;
+}
+
+
+li {
+    list-style-type: none;
+    margin-bottom: .5em;
+}
+
+
+ul {
+	margin-left:0px;
+}
+
+
+label
+{
+	width: 30%;
+	display: inline-block;
+/* 	width: 140px;  */
+}
+
+
+/*
+
+input
+{
+	width: 80%;
+	height: 44px;
+	padding-left: 20px;
+}
+
+label
+{
+	width: 20%;
+	height: 64px;
+	display: inline-block
+}
+
+
+select
+{
+	width: 100%;
+	height: 44px;
+}
+*/
+.topnav
+{
+	width: 100%;
+	text-align: left;
+	color:#000000;
+}
+	
+.subnav
+{
+	width: 100%;
+	text-align: left;
+	background-color:#eeeeee;
+	color:#000000;
+}
+
+.details
+{
+	width:300px;
+
+}
+
+.list
+{
+	padding: 0px 6px 2px 0px;
+}
+
+.topnavitem {
+	width: 115px;
+/* 	height: 50px; */
+	vertical-align: middle;
+	display: inline-block;
+	font: bold 11px Arial;
+	text-decoration: none;
+	text-align: center;
+	background-color: #EEEEEE;
+	color: #333333;
+	padding: 20px 6px 20px 6px;
+	
+	border-top: 1px solid #CCCCCC;
+	border-right: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+	border-left: 1px solid #CCCCCC;
+}
+
+
+.msplistitem, .campaignlistitem, .citylistitem, .legallistitem, .adlistitem, .imagelistitem
+{
+	background-color: #EEEEEE;
+	color: #333333;
+	padding: 10px 10px 10px 10px;
+}

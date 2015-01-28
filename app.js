@@ -1,14 +1,75 @@
-var testApp = angular.module('testApp', [
+var mainApp = angular.module('mainApp', [
   'ngRoute',
+  'ngCookies',
   'testController',
-  'dateController'
+  'dateController',
+  'campaignControllers'
 ]);
+
+mainApp.config(['$routeProvider', function($routeProvider) {
+	
+	$routeProvider.
+		when('/campaign', {
+			templateUrl: 'partials/campaign-list.html',
+			controller: 'CampaignListController'
+		}).
+		when('/country', {
+			//templateUrl: 'partials/msp-list.html',
+			//controller: 'MspListController'
+		}).
+		when('/image', {
+		//	templateUrl: 'partials/image-list.html',
+		//	controller: 'ImageListController'
+		}).
+		when('/legal', {
+		//	templateUrl: 'partials/legal-list.html',
+		//	controller: 'LegalListController'
+		}).
+		
+		when('/campaign/:itemId', {
+		//	templateUrl: 'partials/campaign-details.html',
+		//	controller: 'CampaignDetailsController'
+		}).
+		when('/country/:itemId', {
+		//	templateUrl: 'partials/msp-details.html',
+		//	controller: 'MspDetailsController'
+		}).
+		when('/image/:itemId', {
+		//	templateUrl: 'partials/image-details.html',
+		//	controller: 'ImageDetailsController'
+		}).
+		when('/legal/:itemId', {
+		//	templateUrl: 'partials/legal-details.html',
+		//	controller: 'LegalDetailsController'
+		}).
+		
+		when('/new/campaign', {
+		//	templateUrl: 'partials/campaign-create.html',
+		//	controller: 'CampaignCreateController'
+		}).
+		when('/new/country', {
+		//	templateUrl: 'partials/msp-create.html',
+		//	controller: 'MspCreateController'
+		}).
+		when('/new/image', {
+		//	templateUrl: 'partials/image-create.html',
+		//	controller: 'ImageCreateController'
+		}).
+		when('/new/legal', {
+		//	templateUrl: 'partials/legal-create.html',
+		//	controller: 'LegalCreateController'
+		}).
+		otherwise({
+			redirectTo: '/'
+		});
+	}]);
+
 
 var testController = angular.module('testController', []);
 var dateController = angular.module('dateController', []);
 var dataController = angular.module('dataController', []);
 
-testApp.controller('testController', ['$scope', '$rootScope', '$filter', 'testFactory', function($scope, $rootScope, $filter, testFactory ) {
+mainApp.controller('testController', ['$scope', '$rootScope', '$filter', 'testFactory', function($scope, $rootScope, $filter, testFactory ) {
 
 	$scope.init = function() {
 		console.log("Test Controller in Control!!!");
@@ -50,7 +111,7 @@ testApp.controller('testController', ['$scope', '$rootScope', '$filter', 'testFa
 
 }]);//end test controller 
 
-testApp.controller('dateController', ['$scope', function($scope) {
+mainApp.controller('dateController', ['$scope', function($scope) {
        $scope.value = new Date(2014, 9, 22);
        console.log("set default date: " + $scope.datevalue );
 
@@ -62,7 +123,7 @@ testApp.controller('dateController', ['$scope', function($scope) {
 
      }]);//end date controller 
 
-testApp.controller('dataController', ['$scope','$http', function($scope, $http ) {
+mainApp.controller('dataController', ['$scope','$http', function($scope, $http ) {
     console.log("lets get some data:  ");
 
     $scope.items = Array();

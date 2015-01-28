@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>
+	<script src="https://code.angularjs.org/1.2.26/angular-route.js"></script>
+	<script src="https://code.angularjs.org/1.2.26/angular-cookies.js"></script>
+	<script src="app.js"></script>
+	<script src="test-service.js"></script>
+	<script src="controllers/campaign.js"></script>
+	<script src="services/campaign-service.js"></script>
+
+	<!-- endpoint global for selecting the correct data endpoint -->
+	<script src="js/endpoints.js"></script> 
+
+	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen"/>
+	<link href="css/mobile.css" type="text/css" rel="stylesheet" media="handheld"/>
+
+	<style>
+		#magic-button {
+			display:none;
+		}
+	</style>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=2.0, width=device-width" />
+<title>REST Campaigner</title>
+</head>
+
+<body ng-app="mainApp">
+<label>REST Test: </label >
+	<div class="topnav">
+			<a href="#/campaign"><div class="topnavitem">Campaign</div></a>
+			<a href="#/msp"><div class="topnavitem">MSP</div></a>
+			<a href="#/image"><div class="topnavitem">Image</div></a>
+			<a href="#/city"><div class="topnavitem">City</div></a>
+			<a href="#/legal"><div class="topnavitem">Legal</div></a>
+			<a href="#/ad"><div class="topnavitem">Ad</div></a>
+		</div>
+<!-- cooper s - we'll load our data directly into the home page, $scope all the data we need to run all the views -->
+		<div class="main" ng-view onload="onViewLoad()">
+			View goes here...
+		</div><!-- end view load -->
+<div ng-controller="dataController" class="data" ><br/>
+	<div ng-repeat="item in items">ID: {{item._id}} ITEM: {{item.item}}</div>
+</div><!-- end data controller -->
+<p></p>
+<!-- button controller -->
+	<div ng-controller="testController" ng-init="init()">
+		<button ng-click="startScanner()">Click Me 2</button>
+	</div><!--end testController -->
+</body>
+</html>

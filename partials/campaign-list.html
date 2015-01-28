@@ -1,0 +1,12 @@
+<section class="listpage">
+	
+	<!-- Sub Nav -->
+	<div ng-include="'partials/subnav-list.html'"></div>
+	
+	<!-- Campaign List -->
+	<ul class="list">
+		<li ng-repeat="item in campaigns" class="campaignlistitem">
+			<p ng-bind-html="renderHtml(item)"></p>
+		</li>
+	</ul>  
+</section>
