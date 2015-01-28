@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>
+	<script src="https://code.angularjs.org/1.2.26/angular-route.js"></script>
+	<script src="app.js"></script>
+	<script src="test-service.js"></script>
+	<style>
+		#magic-button {
+			display:none;
+		}
+	</style>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Angular Test Document</title>
+</head>
+
+<body ng-app="testApp">
+	<div ng-controller="testController" ng-init="init()">
+
+	<button ng-click="startScanner()">Click Me 2</button>
+	<p></p>
+	
+</div><!--end testController -->
+<label>TEST Item Data: </label >
+<div ng-controller="dataController" class="data" ><br/>
+	<div ng-repeat="item in items">ID: {{item._id}} ITEM: {{item.item}}</div>
+</div><!-- end data controller -->
+</body>
+</html>
