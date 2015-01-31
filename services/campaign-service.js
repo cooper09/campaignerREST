@@ -9,7 +9,8 @@ angular.module('mainApp').factory('campaignFactory', ['$http', function($http) {
 	var campaignFactory = {};
 
 	campaignFactory.get = function() {
-		return $http.get(endpoint()+'/campaign');
+		//return $http.get(endpoint()+'/campaign');
+		return $http.get('http://default-environment-nm5p9qwapp.elasticbeanstalk.com/');
 	}
 
 	campaignFactory.getCampaign = function(campaignId) {

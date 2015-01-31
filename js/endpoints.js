@@ -17,6 +17,6 @@ function endpoint()
 	}
 	else if(serverMode === "staging")
 	{
-		return "http://claimit-backend-env-ycagthum3h.elasticbeanstalk.com/"
+		return "http://default-environment-nm5p9qwapp.elasticbeanstalk.com"
 	}
 }//end funciton endpoint

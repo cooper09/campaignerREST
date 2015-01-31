@@ -60,19 +60,21 @@ campaignControllers.controller('CampaignListController', ['$scope', 'campaignFac
 	// get campaigns
 
 	campaignFactory.get().success(function(data) {
-		$scope.campaigns = data.campaigns;
-		console.log($scope.campaigns);
+		console.log("campfactory list data: " , data[0].item);
+		$scope.campaigns = data;
 	}); 
 
 	
 	// methods for dynamically creating campaign cells
 	$scope.renderHtml = function (campaign) {
-		
-		return campaign.data.isSpecial ? $sce.trustAsHtml($scope.specialCell(campaign)) : $sce.trustAsHtml($scope.normalCell(campaign));
+		//console.log("renderHtml: ", campaign.item );
+		return campaign.item;
+	//	return campaign.data.isSpecial ? $sce.trustAsHtml($scope.specialCell(campaign)) : $sce.trustAsHtml($scope.normalCell(campaign));
     };
     
 	$scope.specialCell = function(campaign)
 	{
+		console("specialCell: ", campaign );
 		return '<div><a href="#/campaign/'+campaign.data.campaignId+'">'
 		+campaign.data.title+'</a></div>'+
 		'<div>'+campaign.data.description+'</div>'+
@@ -84,7 +86,7 @@ campaignControllers.controller('CampaignListController', ['$scope', 'campaignFac
 	
 	$scope.normalCell = function(campaign)
 	{
-		return '<div><a href="#/campaign/'+campaign.data.campaignId+'">'
+		return '<div><a href="#/campaign/'+campaign._id+'">'
 		+campaign.data.title+
 		'</a></div><div>'+campaign.data.description+'</div>'+
 		'<div>Launch: '+campaign.data.launch+'</div>'+
