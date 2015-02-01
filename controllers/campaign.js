@@ -68,8 +68,9 @@ campaignControllers.controller('CampaignListController', ['$scope', 'campaignFac
 	// methods for dynamically creating campaign cells
 	$scope.renderHtml = function (campaign) {
 		//console.log("renderHtml: ", campaign.item );
-		return campaign.item;
-	//	return campaign.data.isSpecial ? $sce.trustAsHtml($scope.specialCell(campaign)) : $sce.trustAsHtml($scope.normalCell(campaign));
+	//	return campaign.item;
+	//	return campaign ? $sce.trustAsHtml($scope.specialCell(campaign)) : $sce.trustAsHtml($scope.normalCell(campaign));
+    	return $sce.trustAsHtml($scope.normalCell(campaign));
     };
     
 	$scope.specialCell = function(campaign)
@@ -87,14 +88,8 @@ campaignControllers.controller('CampaignListController', ['$scope', 'campaignFac
 	$scope.normalCell = function(campaign)
 	{
 		return '<div><a href="#/campaign/'+campaign._id+'">'
-		+campaign.data.title+
-		'</a></div><div>'+campaign.data.description+'</div>'+
-		'<div>Launch: '+campaign.data.launch+'</div>'+
-		'<div>Drawing: '+campaign.data.drawing+'</div>'+
-		'<div class:"campaign_msp">Tier 1: '+campaign.data.tier1MSP.msp+" count:"+campaign.data.tier1MSP.count+'</div>'+
-		'<div>Tier 2: '+campaign.data.tier2MSP.msp+" count:"+campaign.data.tier2MSP.count+'</div>'+
-		'<div>Tier 3: '+campaign.data.tier3MSP.msp+" count:"+campaign.data.tier3MSP.count+'</div>'+
-		'<div>Active: '+campaign.data.active+'</div></div>';
+		+campaign._id+
+		'</a></div><div>'+campaign.item+'</div>';
 	}	
 	
 }]);// End list Controller 
