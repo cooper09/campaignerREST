@@ -1,0 +1,12 @@
+<section class="listpage">
+
+	<!-- Sub Nav -->
+	<div ng-include="'partials/subnav-list.html'"></div>
+	
+	<!-- Legal List -->
+	<ul class="list">
+		<li ng-repeat="item in legals"  class="legallistitem">
+			<a href="#/legal/{{item.data.legalId}}">{{item.data.label}}</a>
+		</li>
+	</ul>  
+</section>

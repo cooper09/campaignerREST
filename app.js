@@ -3,29 +3,31 @@ var mainApp = angular.module('mainApp', [
   'ngCookies',
   'testController',
   'dateController',
-  'campaignControllers'
+  'campaignControllers',
+  'countryControllers',
+  'imageControllers', 
+  'legalControllers'
 ]);
 
 mainApp.config(['$routeProvider', function($routeProvider) {
 	
 	$routeProvider.
 		when('/campaign', {
-			templateUrl: 'partials/campaign-list.html',
+			templateUrl: 'partials/campaigns/campaign-list.html',
 			controller: 'CampaignListController'
 		}).
 		when('/country', {
-			//templateUrl: 'partials/msp-list.html',
-			//controller: 'MspListController'
+			templateUrl: 'partials/countries/country-list.html',
+			controller: 'CountryListController'
 		}).
 		when('/image', {
-		//	templateUrl: 'partials/image-list.html',
-		//	controller: 'ImageListController'
+			templateUrl: 'partials/images/image-list.html',
+			controller: 'ImageListController'
 		}).
 		when('/legal', {
-		//	templateUrl: 'partials/legal-list.html',
-		//	controller: 'LegalListController'
+			templateUrl: 'partials/legal/legal-list.html',
+			controller: 'LegalListController'
 		}).
-		
 		when('/campaign/:itemId', {
 		//	templateUrl: 'partials/campaign-details.html',
 		//	controller: 'CampaignDetailsController'

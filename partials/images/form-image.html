@@ -1,0 +1,40 @@
+<style>
+	#imageupload {
+		/*display: none;*/
+	}
+</style>
+<div>
+	<form novalidate class="simple-form">
+		
+		Title <input type="text" ng-model="image.image" /><br/>
+		<p></p>
+		<button ng-click="saveItem(image)">{{saveButtonLabel}}</button>
+		<button ng-click="deleteItem(image)" ng-show="{{hasDeleteButton}}">DELETE</button>
+	</form>
+</div>
+<p></p>
+<div id="imageupload">
+	<div ng-controller="loadUp">
+		<label>Select image:</label>
+		<input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files,'claim')"/>
+		<p></p>
+	</div><!-- end loadup -->
+<!-- php binary upload -->	
+<form enctype="multipart/form-data" action="http://sonyainc.net/campaigner/upload.php" method="POST">
+    <!-- MAX_FILE_SIZE must precede the file input field -->
+    <input type="hidden" name="MAX_FILE_SIZE" value="300000" />
+    <!-- Name of input element determines name in $_FILES array -->
+    Send this file: <input name="userfile" type="file" />
+    <input type="submit" value="Send File" />
+</form>
+</div><!-- end imageupload -->
+<p></p>
+
+<div>
+	<b>Current Detail image</b><br/>
+<!--		<img ng-src="{{image.data}}"></img><br/><br/>  -->
+</div>
+<p>Data Preview:</p>
+<textarea style="color: yellow; background-color: black; font-family: monospace; font-size: 12px" rows="30" cols="150">
+{{image | json}}
+</textarea>

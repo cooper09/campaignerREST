@@ -5,9 +5,26 @@
 	<script src="https://code.angularjs.org/1.2.26/angular-route.js"></script>
 	<script src="https://code.angularjs.org/1.2.26/angular-cookies.js"></script>
 	<script src="app.js"></script>
-	<script src="test-service.js"></script>
+	<script src="test-service.js"></script>\
+	<!-- the controller functions for each category will manage the listing, creating, deleting and updating of
+		specific data items/documents and factory services will create singletons that are used throughout the app 
+
+		Camapaigns 
+	-->
 	<script src="controllers/campaign.js"></script>
 	<script src="services/campaign-service.js"></script>
+
+	<!-- Countries -->
+	<script src="controllers/countries.js"></script>
+	<script src="services/country-service.js"></script>
+
+	<!-- Images -->
+	<script src="controllers/image.js"></script>
+	<script src="services/image-service.js"></script>
+
+	<!-- Legal -->
+	<script src="controllers/legal.js"></script>
+	<script src="services/legal-service.js"></script>
 
 	<!-- endpoint global for selecting the correct data endpoint -->
 	<script src="js/endpoints.js"></script> 
@@ -29,11 +46,9 @@
 <label>REST Test: </label >
 	<div class="topnav">
 			<a href="#/campaign"><div class="topnavitem">Campaign</div></a>
-			<a href="#/msp"><div class="topnavitem">MSP</div></a>
+			<a href="#/country"><div class="topnavitem">Country</div></a>
 			<a href="#/image"><div class="topnavitem">Image</div></a>
-			<a href="#/city"><div class="topnavitem">City</div></a>
 			<a href="#/legal"><div class="topnavitem">Legal</div></a>
-			<a href="#/ad"><div class="topnavitem">Ad</div></a>
 		</div>
 <!-- cooper s - we'll load our data directly into the home page, $scope all the data we need to run all the views -->
 		<div class="main" ng-view onload="onViewLoad()">
