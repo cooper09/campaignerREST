@@ -11,7 +11,6 @@ angular.module('mainApp')
 
     		countryFactory.get = function() {
                // return $http.get(endpoint()+'get_countries_data.php');
-               alert("Getting list of countries...");
                return $http.get( endpoint()+'country');
                 //ndpoint();
     		}

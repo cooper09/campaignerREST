@@ -32,7 +32,7 @@ var Country = function()
 var countryControllers = angular.module('countryControllers', []);
 
 countryControllers.controller('CountryListController', ['$scope', 'countryFactory', function($scope, countryFactory ) {	
-	$scope.sectionName = "COUNTRY";
+	$scope.sectionName = "Country";
 	$scope.createNewLink = "#/new/country";
 
 	$scope.status;
@@ -65,7 +65,7 @@ countryControllers.controller('CountryListController', ['$scope', 'countryFactor
 */
 countryControllers.controller('CountryDetailsController', ['$rootScope','$scope', 'countryFactory', '$routeParams', '$location','dataFactory', function($rootScope,$scope, mspFactory, $routeParams, $location, dataFactory) {
 
-	$scope.sectionName = "COUNTRY";
+	$scope.sectionName = "Country";
 	$scope.saveButtonLabel = "UPDATE";
 	$scope.hasDeleteButton = true;
 	
