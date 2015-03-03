@@ -126,16 +126,15 @@ mainApp.controller('dateController', ['$scope', function($scope) {
      }]);//end date controller 
 
 mainApp.controller('dataController', ['$scope','$http', function($scope, $http ) {
-    console.log("lets get some data:  ");
+    console.log("lets get some data:  " + endpoint());
 
     $scope.items = Array();
 
-    	$http.get('http://default-environment-nm5p9qwapp.elasticbeanstalk.com/').success(function(data) {
-			console.log("getData data:  ",data);
-			$scope.items = data;
-			console.log("an item: " + $scope.items );
-			$scope.itemid = data[0]._id;
-			$scope.item = data[0].item;
+    	//$http.get('http://default-environment-nm5p9qwapp.elasticbeanstalk.com/').success(function(data) {
+    	$http.get(endpoint()).success(function(data) {	
+			console.log("mainApp - getData data:  ",data);
+			$scope.campaigns = data;
+			console.log("our campaigns: " + $scope.campaigns );
 		});
 
      }]);//end date controller 

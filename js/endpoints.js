@@ -1,11 +1,11 @@
 
-var serverMode = "development"
+var serverMode = "localhost"
 
 function endpoint()
 {
 	if(serverMode === "localhost")
 	{
-		return "http://localhost:8080/"
+		return "http://localhost:8081/"
 	}
 	else if(serverMode === "development")
 	{

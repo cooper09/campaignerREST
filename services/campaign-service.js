@@ -9,20 +9,21 @@ angular.module('mainApp').factory('campaignFactory', ['$http', function($http) {
 	var campaignFactory = {};
 
 	campaignFactory.get = function() {
-		//return $http.get(endpoint()+'/campaign');
-		return $http.get('http://default-environment-nm5p9qwapp.elasticbeanstalk.com/');
+		console.log("getting data");
+		return $http.get(endpoint()+'campaign');
+		//return $http.get('http://default-environment-nm5p9qwapp.elasticbeanstalk.com/');
 	}
 
 	campaignFactory.getCampaign = function(campaignId) {
-		return $http.get(endpoint()+'/campaign/' + campaignId );
+		return $http.get(endpoint()+'campaign/' + campaignId );
 	}
 	
 	campaignFactory.new = function(campaignId) {
-		return $http.post(endpoint()+'/campaign/' + campaignId );
+		return $http.post(endpoint()+'campaign/' + campaignId );
 	}
 	
 	campaignFactory.delete = function(campaignId) {
-		return $http.delete(endpoint()+'/campaign/' + campaignId );
+		return $http.delete(endpoint()+'campaign/' + campaignId );
 	}
 
 	campaignFactory.update =  function(campaign) {

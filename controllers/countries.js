@@ -31,27 +31,29 @@ var Country = function()
 
 var countryControllers = angular.module('countryControllers', []);
 
-countryControllers.controller('CountryListController', ['$scope', 'countryFactory', function($scope, countryFactory ) {	
+countryControllers.controller('CountryListController', ['$scope', 'countryFactory', '$sce', function($scope, countryFactory, $sce ) {	
 	$scope.sectionName = "Country";
 	$scope.createNewLink = "#/new/country";
 
 	$scope.status;
 	
 	countryFactory.get().success(function(data) {
-		$scope.countries = data;
-		console.log("My list of countries: " + $scope.countries);
+		console.log("My list of countries: " , data[0].countries );
+		$scope.countries = data[0].countries;
+		//console.log("My list of countries: " , data[0].countries[0].country);
 	}); 
 
 	// methods for dynamically creating campaign cells
 	$scope.renderHtml = function (country) {
-    	return $sce.trustAsHtml($scope.normalCell(country));
+    	return $sce.trustAsHtml($scope.normalCell(country.countries[0].country));
     };
     
 	$scope.normalCell = function(country)
 	{
+		console.log("render country: ",  country);
 		return '<div><a href="#/country/'+country._id+'">'
 		+country._id+
-		'</a></div><div>'+country.item+'</div>';
+		'</a></div><div>'+country+'</div>';
 	}	
 
 }]);//End Country List Controller 

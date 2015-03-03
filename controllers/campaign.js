@@ -60,14 +60,13 @@ campaignControllers.controller('CampaignListController', ['$scope', 'campaignFac
 	// get campaigns
 
 	campaignFactory.get().success(function(data) {
-		console.log("campfactory list data: " , data[0].item);
+		console.log("campfactory list data: " , data);
 		$scope.campaigns = data;
 	}); 
 
 	
 	// methods for dynamically creating campaign cells
 	$scope.renderHtml = function (campaign) {
-		//console.log("renderHtml: ", campaign.item );
 	//	return campaign.item;
 	//	return campaign ? $sce.trustAsHtml($scope.specialCell(campaign)) : $sce.trustAsHtml($scope.normalCell(campaign));
     	return $sce.trustAsHtml($scope.normalCell(campaign));
@@ -89,7 +88,7 @@ campaignControllers.controller('CampaignListController', ['$scope', 'campaignFac
 	{
 		return '<div><a href="#/campaign/'+campaign._id+'">'
 		+campaign._id+
-		'</a></div><div>'+campaign.item+'</div>';
+		'</a></div><div>'+campaign.adId+'</div>';
 	}	
 	
 }]);// End list Controller 
