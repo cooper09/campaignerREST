@@ -25,7 +25,7 @@ var Legal = function()
 	• display list Legal items
 	• create new Legal
 */
-legalControllers.controller('LegalListController', ['$scope', '$http', '$location', function($scope, $http, $location) {
+legalControllers.controller('LegalListController', ['$scope', '$http', '$location','legalFactory', function($scope, $http, $location, legalFactory) {
 	
 	$scope.sectionName = "Legal";
 	$scope.createNewLink = "#/new/legal";
@@ -36,14 +36,13 @@ legalControllers.controller('LegalListController', ['$scope', '$http', '$locatio
 		$location.path("#/legal/new")
 	}
 	
-	// fetch Legal records
-	$http.get(legalEndPoint).
-	success(function(data) {
-		console.log("legals loaded",data);
-		$scope.legals = data.legals;
+
+	legalFactory.get().success(function(data) {
+		console.log(" current LIST of legal docs: ", data );
+
+		$scope.legals = data;
 	});
 }]);
-
 
 
 /*

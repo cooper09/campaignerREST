@@ -24,7 +24,7 @@ var Image = function()
 	• display list image items
 	• create new image
 */
-imageControllers.controller('ImageListController', ['$scope', 'dataFactory','imageFactory', function($scope,dataFactory,imageFactory) {
+imageControllers.controller('ImageListController', ['$scope', 'imageFactory', function($scope, imageFactory) {
 	
 	$scope.sectionName = "Image";
 	$scope.createNewLink = "#/new/image";
@@ -35,12 +35,11 @@ imageControllers.controller('ImageListController', ['$scope', 'dataFactory','ima
 	}
 	
 	imageFactory.get().success(function(data) {
+		console.log(" current LIST of images: ", data );
 		$scope.images = data;
-		console.log(" current LIST of images: ", $scope.images );
+		
 	});
 }]);
-
-
 
 /*
 	ImageDetailsController

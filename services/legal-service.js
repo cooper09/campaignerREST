@@ -1,26 +1,26 @@
 angular.module('mainApp')
-    .factory('dataFactory', ['$http', function($http) {
+    .factory('legalFactory', ['$http', function($http) {
 
-    	var dataFactory = {};
+    	var legalFactory = {};
 
-    		dataFactory.get = function() {
-    			alert("Get our compaigns...");
-    			return $http.get('http://claimit-development.elasticbeanstalk.com/campaign');
+    		legalFactory.get = function() {
+    			//return $http.get('http://claimit-development.elasticbeanstalk.com/campaign');
+                return $http.get(endpoint()+'legal');
     		}
 
-    		dataFactory.new = function(campaignId) {
-    			alert("new campaign: " + campaignId );
+    		legalFactory.new = function(legalId) {
+    			alert("new campaign: " + legalId );
             	//$http.post('http://claimit-development.elasticbeanstalk.com/campaign/' + campaignId );
        		}
 
-		    dataFactory.delete = function(campaignId) {
-            	$http.delete('http://claimit-development.elasticbeanstalk.com/campaign/' + campaignId );
+		    legalFactory.delete = function(legalId) {
+            	$http.delete('http://claimit-development.elasticbeanstalk.com/campaign/' + legalId );
         	}
 
-		    dataFactory.update =  function(campaignId) {
-            	$http.put('http://claimit-development.elasticbeanstalk.com/campaign/' + campaignId, this);
+		    legalFactory.update =  function(legalId) {
+            	$http.put('http://claimit-development.elasticbeanstalk.com/campaign/' + legalId, this);
         	}
 
-		    return dataFactory;
+		    return legalFactory;
 
     }]);

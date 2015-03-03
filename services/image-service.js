@@ -11,12 +11,13 @@ angular.module('mainApp')
     	var imageFactory = {};
 
     		imageFactory.get = function() {
-    			return $http.get(endpoint() + 'get_image_data.php');
+                console.log("lets get our images...");
+    			return $http.get(endpoint() + 'image');
     		}
 
             imageFactory.getImage = function(imageId) {
                 alert("imageFactory.getImage: " + imageId);
-                return $http.get(endpoint() + 'get_image.php?id=' + imageId );
+                return $http.get(endpoint() + 'image/' + imageId );
             }
 
     		imageFactory.new = function(imageId) {   
