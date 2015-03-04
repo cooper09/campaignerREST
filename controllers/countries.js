@@ -38,8 +38,8 @@ countryControllers.controller('CountryListController', ['$scope', 'countryFactor
 	$scope.status;
 	
 	countryFactory.get().success(function(data) {
-		console.log("My list of countries: " , data[0].countries );
-		$scope.countries = data[0].countries;
+		console.log("My list of countries: " , data);
+		$scope.countries = data;
 		//console.log("My list of countries: " , data[0].countries[0].country);
 	}); 
 
@@ -65,7 +65,7 @@ countryControllers.controller('CountryListController', ['$scope', 'countryFactor
 	• delete msp
 	• update msp
 */
-countryControllers.controller('CountryDetailsController', ['$rootScope','$scope', 'countryFactory', '$routeParams', '$location','dataFactory', function($rootScope,$scope, mspFactory, $routeParams, $location, dataFactory) {
+countryControllers.controller('CountryDetailsController', ['$rootScope','$scope', 'countryFactory', '$routeParams', '$location', function($rootScope,$scope, mspFactory, $routeParams, $location ) {
 
 	$scope.sectionName = "Country";
 	$scope.saveButtonLabel = "UPDATE";
@@ -95,7 +95,6 @@ countryControllers.controller('CountryDetailsController', ['$rootScope','$scope'
 		$scope.itemId =  $scope.country.countryId;
 
 		// now that we have our country set it to root scope 
-		dataFactory.setcountry($scope.country);
 		console.log("country.saveItem: " , $rootScope.country );
 	}); 
 	

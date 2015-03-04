@@ -29,8 +29,8 @@ mainApp.config(['$routeProvider', function($routeProvider) {
 			controller: 'LegalListController'
 		}).
 		when('/campaign/:itemId', {
-		//	templateUrl: 'partials/campaign-details.html',
-		//	controller: 'CampaignDetailsController'
+			templateUrl: 'partials/campaigns/campaign-details.html',
+			controller: 'CampaignDetailsController'
 		}).
 		when('/country/:itemId', {
 		//	templateUrl: 'partials/msp-details.html',

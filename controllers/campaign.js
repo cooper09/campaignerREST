@@ -86,9 +86,9 @@ campaignControllers.controller('CampaignListController', ['$scope', 'campaignFac
 	
 	$scope.normalCell = function(campaign)
 	{
-		return '<div><a href="#/campaign/'+campaign._id+'">'
-		+campaign._id+
-		'</a></div><div>'+campaign.adId+'</div>';
+		return '<div><a href="#/campaign/'+campaign.campaignId+'">'
+		+campaign.campaignId+
+		'</a></div><div>'+campaign.title+'</div>';
 	}	
 	
 }]);// End list Controller 
@@ -99,7 +99,7 @@ campaignControllers.controller('CampaignListController', ['$scope', 'campaignFac
 	• delete campaign
 	• update campaign
 */
-campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scope','dataFactory', 'campaignFactory', '$routeParams', '$location', '$filter', function($rootScope, $scope, dataFactory, campaignFactory, $routeParams, $location, $filter) {
+campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scope', 'campaignFactory', '$routeParams', '$location', '$filter', function($rootScope, $scope, campaignFactory, $routeParams, $location, $filter) {
 	$scope.sectionName = "Campaign";
 	$scope.saveButtonLabel = "UPDATE";
 	$scope.hasDeleteButton = true;
@@ -107,11 +107,11 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	$scope.drawingDate;
 	
 
-	 //console.log("current campaign launch date: " + $scope.campaignlaunch );
+	 console.log("current campaign launch date: " + $scope.campaign );
 
-	$scope.$on('msps-loaded', function(event, args) {
+	//$scope.$on('msps-loaded', function(event, args) {
 		
-	});//end scope on campaign
+	//});//end scope on campaign
 	
 	
 	// launch date change handler
