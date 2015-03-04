@@ -188,7 +188,8 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 
 	}); 
 	
-	campaignFactory.getCities( $routeParams.itemId ).success(function(data) {
+	//GET add'l data here....
+/*	campaignFactory.getCities( $routeParams.itemId ).success(function(data) {
 		console.log("citys",data.citys)
 		$scope.cities = data.citys;
 		
@@ -199,7 +200,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 		console.log("msps",data.msps)
 		$scope.msps = data.msps;
 		$rootScope.$broadcast('msps-loaded');
-	}); 
+	});  */
 
 //cooper s - need a little standalone date formatter 
 	function formatDate(date) {
