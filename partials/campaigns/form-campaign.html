@@ -9,46 +9,17 @@
 		<label>Launch:</label>
 		<input type="text" ng-model="launchDate" ng-change="onLaunchDateChanged(launchDate)"/><br />
 		<p></p>
-		<label>Drawing:</label>
+		<label>End Date:</label>
 		<input type="text" ng-model="drawingDate" ng-change="onDrawingDateChanged(drawingDate)" /><br />
 		<p></p>
 		<label>City</label>
-		<select ng-model="campaign.cityId">
-			<option ng-repeat="item in cities" ng-selected="{{campaign.cityId == item.data.cityId}}">{{item.data.label}}
+		<select ng-model="campaign.countryId">
+			<option ng-repeat="item in countries" ng-selected="{{campaign.countryId == item.data.countryId}}">{{item.data.label}}
 			</option>
 		</select><br />
-		<label>Special?</label>  
-		<input type="radio" ng-model="campaign.isSpecial" data-ng-value="true" />true
-		<input type="radio" ng-model="campaign.isSpecial" data-ng-value="false" />false<br />
-		<p></p>
-		<div ng-show="campaign.isSpecial">
-			<label>MSP (Special)</label>
-			<span ng-controller="specialController">
-				<select 
-					      ng-model="selectedOption" 
-					      ng-options="option.value as option.name for option in options"
-					      ng-change="changeMe(selectedOption)"
-					      id="specialMSP">
-				</select>count:	<input type="number" ng-model="campaign.special.count" size="4"/>
-			</span>
-		</div>
-		<p></p>
-		<div ng-show="campaign.isSpecial==false" ng-model="campaign">
-			<p></p>
-			<label>MSP (Tier 1)</label> 
-			<span ng-controller="simpleController">
-				     <select 
-				      ng-model="selectedOption" 
-				      ng-options="option.value as option.name for option in options"
-				      ng-change="changeMe(selectedOption)"
-				      id="MSPtier1"
-				      >
-				    </select>count:	<input type="number" ng-model="campaign.tier1MSP.count" size="4"/>
+	
 
-				  </span>
-			<p></p>
-
-			<label>MSP (Tier 2)</label>
+			<label>Image</label>
 			<span ng-controller="simpleController2">
 				     <select 
 				      ng-model="selectedOption" 
@@ -60,7 +31,7 @@
 				  </span>
 			<p></p>
 			
-			<label>MSP (Tier 3)</label>
+			<label>Video</label>
 			<span ng-controller="simpleController3">
 				     <select 
 				      ng-model="selectedOption" 

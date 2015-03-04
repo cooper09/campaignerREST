@@ -165,7 +165,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
 		// get campaign from response
 		console.log("CampaignDetailsController.getCampaign: " , data );
-		$scope.campaign = data.campaign.data;
+		$scope.campaign = data;
 		
 		console.log("CampaignDetailsController.getCampaign - launchDate: " , $scope.campaign.launch);
 		console.log("CampaignDetailsController.getCampaign - drawingDate: " , $scope.campaign.drawing);
@@ -184,7 +184,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 		console.log("CampaignDetailsController.getCampaign - converted drawingDate: " , $scope.drawingDate);
 		
 	// now that we have our campaign set it to root scope 
-		dataFactory.setCampaign($scope.campaign);
+	//	dataFactory.setCampaign($scope.campaign);
 
 	}); 
 	
