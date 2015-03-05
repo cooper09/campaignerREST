@@ -163,29 +163,27 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	console.log("Details Controller - saveItem get campaign: " + $routeParams.itemId ); 
 
 	campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
+		
 		// get campaign from response
 		console.log("CampaignDetailsController.getCampaign: " , data );
 		$scope.campaign = data;
 		
 		console.log("CampaignDetailsController.getCampaign - launchDate: " , $scope.campaign.launch);
-		console.log("CampaignDetailsController.getCampaign - drawingDate: " , $scope.campaign.drawing);
+		console.log("CampaignDetailsController.getCampaign - drawingDate: " , $scope.campaign.end);
+		console.log("CampaignDetailsController.getCampaign - country: " , $scope.campaign.country);
+		console.log("CampaignDetailsController.getCampaign - video: " , $scope.campaign.video);
 
 		// set drawing and launch dates on scope
-		$scope.drawingDate = formatDateToString(new Date( $scope.campaign.drawing));
+		$scope.drawingDate = formatDateToString(new Date( $scope.campaign.end));
 		$scope.launchDate = formatDateToString(new Date( $scope.campaign.launch));
-
-		var formattedLaunchDate = new Date( $scope.campaign.launch*1000);
-		var formattedDrawingDate = new Date( $scope.campaign.drawing*1000);
-
-		$scope.launchDate = formatDate(formattedLaunchDate);
-		$scope.drawingDate = formatDate(formattedDrawingDate);
-
-		console.log("CampaignDetailsController.getCampaign - converted launchDate: " , $scope.launchDate);
-		console.log("CampaignDetailsController.getCampaign - converted drawingDate: " , $scope.drawingDate);
-		
+		$scope.country = $scope.campaign.country;
+		$scope.image = $scope.campaign.image;
+		$scope.video = $scope.campaign.video;
 	// now that we have our campaign set it to root scope 
 	//	dataFactory.setCampaign($scope.campaign);
 
+	}).error (function(data) {
+		alert("GET CAMPAIGN - ERROR: "+  data );
 	}); 
 	
 	//GET add'l data here....

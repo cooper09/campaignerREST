@@ -65,12 +65,12 @@ countryControllers.controller('CountryListController', ['$scope', 'countryFactor
 	• delete msp
 	• update msp
 */
-countryControllers.controller('CountryDetailsController', ['$rootScope','$scope', 'countryFactory', '$routeParams', '$location', function($rootScope,$scope, mspFactory, $routeParams, $location ) {
+countryControllers.controller('CountryDetailsController', ['$rootScope','$scope', 'countryFactory', '$routeParams', '$location', function($rootScope,$scope, countryFactory, $routeParams, $location ) {
 
 	$scope.sectionName = "Country";
 	$scope.saveButtonLabel = "UPDATE";
 	$scope.hasDeleteButton = true;
-	
+
 	// delete country method
 	$scope.deleteItem = function(){
 		countryFactory.delete($scope.country.countryId).success(function(data) {
@@ -88,17 +88,23 @@ countryControllers.controller('CountryDetailsController', ['$rootScope','$scope'
 		}); 
 	}
 	// get country details
-	
+	+ 
 	console.log("countryDetailsController.saveItem - get country: " + $routeParams.itemId ); 
-	countryFactory.getcountry( $routeParams.itemId ).success(function(data) {
-		$scope.country = data.country.data;
-		$scope.itemId =  $scope.country.countryId;
+
+	countryFactory.getCountry( $routeParams.itemId ).success(function(data) {
+
+		alert("retrieved country data: " + data.country );
+
+		$scope.country = data.country;
+		$scope.itemId =  $scope.countryId;
 
 		// now that we have our country set it to root scope 
 		console.log("country.saveItem: " , $rootScope.country );
-	}); 
+	}).error (function(data) {
+		alert("GET COUNTRY - ERROR: "+  data );
+	}); ; 
 	
-	countryFactory.getImages( $routeParams.itemId ).success(function(data) {
+/*	countryFactory.getImages( $routeParams.itemId ).success(function(data) {
 		console.log("countryDetailsController.saveItem - images",data.images)
 		$scope.images = data.images;
 		
@@ -108,7 +114,7 @@ countryControllers.controller('CountryDetailsController', ['$rootScope','$scope'
 	countryFactory.getLegal( $routeParams.itemId ).success(function(data) {
 		console.log("countryDetailsController.saveItem - legal: ",data.legals.data)
 		$scope.legalData = data.legals.data;
-	}); 
+	});  */
 }]);
 
 /*

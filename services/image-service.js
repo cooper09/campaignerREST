@@ -16,7 +16,7 @@ angular.module('mainApp')
     		}
 
             imageFactory.getImage = function(imageId) {
-                alert("imageFactory.getImage: " + imageId);
+                console.log("imageFactory.getImage: " + imageId);
                 return $http.get(endpoint() + 'image/' + imageId );
             }
 

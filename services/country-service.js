@@ -15,7 +15,7 @@ angular.module('mainApp')
                 //ndpoint();
     		}
 
-            countryFactory.getcountry = function(countryId) {
+            countryFactory.getCountry = function(countryId) {
                 return $http.get(endpoint()+'country/' + countryId );
             }
 

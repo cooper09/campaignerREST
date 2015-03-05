@@ -7,7 +7,10 @@ angular.module('mainApp')
     			//return $http.get('http://claimit-development.elasticbeanstalk.com/campaign');
                 return $http.get(endpoint()+'legal');
     		}
-
+            legalFactory.getLegal = function(legalId) {
+                console.log("legalFactory.getLegal: " + legalId);
+                return $http.get(endpoint() + 'legal/' + legalId );
+            }
     		legalFactory.new = function(legalId) {
     			alert("new campaign: " + legalId );
             	//$http.post('http://claimit-development.elasticbeanstalk.com/campaign/' + campaignId );

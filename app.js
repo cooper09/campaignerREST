@@ -33,16 +33,16 @@ mainApp.config(['$routeProvider', function($routeProvider) {
 			controller: 'CampaignDetailsController'
 		}).
 		when('/country/:itemId', {
-		//	templateUrl: 'partials/msp-details.html',
-		//	controller: 'MspDetailsController'
+			templateUrl: 'partials/countries/country-details.html',
+			controller: 'CountryDetailsController'
 		}).
 		when('/image/:itemId', {
-		//	templateUrl: 'partials/image-details.html',
-		//	controller: 'ImageDetailsController'
+			templateUrl: 'partials/images/image-details.html',
+			controller: 'ImageDetailsController'
 		}).
 		when('/legal/:itemId', {
-		//	templateUrl: 'partials/legal-details.html',
-		//	controller: 'LegalDetailsController'
+			templateUrl: 'partials/legal/legal-details.html',
+			controller: 'LegalDetailsController'
 		}).
 		
 		when('/new/campaign', {

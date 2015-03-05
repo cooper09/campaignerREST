@@ -12,36 +12,34 @@
 		<label>End Date:</label>
 		<input type="text" ng-model="drawingDate" ng-change="onDrawingDateChanged(drawingDate)" /><br />
 		<p></p>
-		<label>City</label>
+		<label>Country:</label>
+		<input type="text" ng-model="country" ng-change="onDrawingDateChanged(country)" /><br />
+		<p></p>
+		<label>Image:</label>
+		<input type="text" ng-model="image" ng-change="onDrawingDateChanged(image)" /><br />
+		<p></p>
+		<label>Video:</label>
+		<input type="text" ng-model="video" ng-change="onDrawingDateChanged(video)" /><br />
+		<p></p>
+		<label>Video:</label>
 		<select ng-model="campaign.countryId">
 			<option ng-repeat="item in countries" ng-selected="{{campaign.countryId == item.data.countryId}}">{{item.data.label}}
 			</option>
 		</select><br />
 	
+		<label>Image:</label>
+		<select ng-model="campaign.countryId">
+			<option ng-repeat="item in countries" ng-selected="{{campaign.countryId == item.data.countryId}}">{{item.data.label}}
+			</option>
+		</select><br />
 
-			<label>Image</label>
-			<span ng-controller="simpleController2">
-				     <select 
-				      ng-model="selectedOption" 
-				      ng-options="option.value as option.name for option in options"
-				      ng-change="changeMe(selectedOption)"
-				      id="MSPtier2"
-				      >
-				    </select>count:	<input type="number" ng-model="campaign.tier2MSP.count" size="4"/>
-				  </span>
-			<p></p>
-			
-			<label>Video</label>
-			<span ng-controller="simpleController3">
-				     <select 
-				      ng-model="selectedOption" 
-				      ng-options="option.value as option.name for option in options"
-				      ng-change="changeMe(selectedOption)"
-				      id="MSPtier3"
-				      >
-				    </select>count:	<input type="number" ng-model="campaign.tier3MSP.count" size="4"/>
+		<label>Video:</label>
+		<select ng-model="campaign.countryId">
+			<option ng-repeat="item in countries" ng-selected="{{campaign.countryId == item.data.countryId}}">{{item.data.label}}
+			</option>
+		</select><br />
 
-				  </span>
+
 		</div>
 		<label>Active?</label>
 		<input type="radio" ng-model="campaign.active" data-ng-value="true"/>true
@@ -50,7 +48,7 @@
 		<button ng-click="saveItem(campaign)">{{saveButtonLabel}}</button>
 		<button ng-click="deleteItem()" ng-show="{{hasDeleteButton}}">DELETE</button>
 	</form>
-</div>
+</div><!-- end form -->
 <p>Data Preview:</p>
 <textarea style="color: yellow; background-color: black; font-family: monospace; font-size: 12px" rows="30" cols="150">
 {{campaign | json}}

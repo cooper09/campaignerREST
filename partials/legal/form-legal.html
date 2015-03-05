@@ -1,18 +1,13 @@
 <div>
 	<form novalidate class="simple-form">
-		Label <input type="text" ng-model="legal.data.label" /><br />
-<<<<<<< HEAD
-		Content <textarea ng-model="legal.data.content"></textarea><br />
+		Label: <input type="text" ng-model="legal.document" /><br />
+
+		Document:  <input size="50" ng-model="legal.location"></input><br />
 		<p></p>
 		<button ng-click="saveLegal(legal)">{{saveButtonLabel}}</button>
 		<button ng-click="deleteLegal()" ng-show="{{hasDeleteButton}}">DELETE</button>
-=======
-		Content <textarea ng-model="legal.data.content" rows="5" cols="100"></textarea><br />
-		<button ng-click="deleteLegal(legal.data.legalId)">DELETE</button>
-		<button ng-click="saveLegal(legal.data.legalId)">UPDATE</button>
-		<button ng-click="save()">{{saveButtonLabel}}</button>
-		<button ng-click="delete()" ng-show="{{hasDeleteButton}}">DELETE</button>
->>>>>>> 92abe4a6fcf7e212e21e6c43b09d1d1b9b1de9d4
+
+		
 	</form>
 </div>
 <p>Data Preview:</p>

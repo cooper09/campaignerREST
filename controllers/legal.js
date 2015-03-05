@@ -51,7 +51,7 @@ legalControllers.controller('LegalListController', ['$scope', '$http', '$locatio
 	• delete Legal
 	• update Legal
 */
-legalControllers.controller('LegalDetailsController', ['$scope', '$http','$routeParams','$location', function($scope, $http, $routeParams, $location) {
+legalControllers.controller('LegalDetailsController', ['$scope', '$http','$routeParams','$location', 'legalFactory', function($scope, $http, $routeParams, $location, legalFactory) {
 
 	$scope.sectionName = "Legal";
 	$scope.saveButtonLabel = "UPDATE";
@@ -78,15 +78,22 @@ legalControllers.controller('LegalDetailsController', ['$scope', '$http','$route
 		});
 	}
 	
-	// get Legal details
+	/* get Legal details
 	$http.get(legalEndPoint + '/' + $routeParams.itemId).
 	success(function(data) {
 		console.log("loaded Legal details");
 		$scope.legal = data.legal;
 		$scope.itemId = $scope.legal.data.legalId;
 
+	}); */
+	legalFactory.getLegal($routeParams.itemId).success(function(data) {
+		console.log("LegaletailsController - loaded legal details: ", data );
+		$scope.legal = data;
+		//$scope.itemId = $scope.image.data.imageId;
+		console.log("Got scope legal: " + $scope.legal );
 	});
-}]);
+
+}]);//END Legal Details
 
 /*
 	LegalCreateController

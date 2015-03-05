@@ -15,7 +15,7 @@ angular.module('mainApp').factory('campaignFactory', ['$http', function($http) {
 	}
 
 	campaignFactory.getCampaign = function(campaignId) {
-		alert("Get the damn campaign: " + campaignId );
+		console.log('getCampaign: ' + campaignId );
 		return $http.get(endpoint()+'campaign/' + campaignId );
 	}
 	

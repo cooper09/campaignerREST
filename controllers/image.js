@@ -48,7 +48,7 @@ imageControllers.controller('ImageListController', ['$scope', 'imageFactory', fu
 	• update image
 */
 
-imageControllers.controller('ImageDetailsController', ['$rootScope','$scope','$http', 'dataFactory','imageFactory', '$routeParams', '$location', function($rootScope, $scope, $http, dataFactory ,imageFactory, $routeParams, $location) {	
+imageControllers.controller('ImageDetailsController', ['$rootScope','$scope','$http','imageFactory', '$routeParams', '$location', function($rootScope, $scope, $http, imageFactory, $routeParams, $location) {	
 //imageControllers.controller('ImageDetailsController', ['$scope', '$http','$routeParams','$location', function($scope, $http, $routeParams, $location) {
 	$scope.sectionName = "Image";
 	$scope.saveButtonLabel = "UPDATE";
@@ -82,9 +82,6 @@ imageControllers.controller('ImageDetailsController', ['$rootScope','$scope','$h
 		$scope.image = data;
 		//$scope.itemId = $scope.image.data.imageId;
 		console.log("Got scope image: " + $scope.image );
-		// now that we have our msp set it to root scope 
-		dataFactory.setImage($scope.image);
-		console.log("imageFactory - current root image: " , $rootScope.image );
 	});
 	
 
