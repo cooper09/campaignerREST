@@ -46,20 +46,20 @@ mainApp.config(['$routeProvider', function($routeProvider) {
 		}).
 		
 		when('/new/campaign', {
-		//	templateUrl: 'partials/campaign-create.html',
-		//	controller: 'CampaignCreateController'
+			templateUrl: 'partials/campaigns/campaign-create.html',
+			controller: 'CampaignCreateController'
 		}).
 		when('/new/country', {
-		//	templateUrl: 'partials/msp-create.html',
-		//	controller: 'MspCreateController'
+			templateUrl: 'partials/countries/country-create.html',
+			controller: 'CountryCreateController'
 		}).
 		when('/new/image', {
-		//	templateUrl: 'partials/image-create.html',
-		//	controller: 'ImageCreateController'
+			templateUrl: 'partials/images/image-create.html',
+			controller: 'ImageCreateController'
 		}).
 		when('/new/legal', {
-		//	templateUrl: 'partials/legal-create.html',
-		//	controller: 'LegalCreateController'
+			templateUrl: 'partials/legal/legal-create.html',
+			controller: 'LegalCreateController'
 		}).
 		otherwise({
 			redirectTo: '/'
