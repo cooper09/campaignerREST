@@ -14,7 +14,7 @@ var Image = function()
 {
 	    this.data = {
 		imageId: null,
-		image: "unlabeled image",
+		label: "unlabeled image",
 		location: "www"
 	};
 }
@@ -100,11 +100,11 @@ imageControllers.controller('ImageCreateController', ['$scope', '$http','$locati
 	console.log("imageCreateController - new image: ", $scope.image.data );
 	// save method
 	$scope.saveItem = function(){
-		console.log("ImageController - creating image - label: ", $scope.image.data.label );
+		console.log("TEST - ImageController - creating image - label: ", $scope.image.data.label );
 		//console.log("ImageController - creating image - data label: ", $scope.image.data.label);
 
-		//$http.post(endpoint()+'image/', $scope.image.data).
-		$http.post(endpoint()+'new_image.php?image=test.jpg').
+		$http.post(endpoint()+'image/', $scope.image.data).
+		/*$http.post(endpoint()+'new_image.php?image=test.jpg'). */
 		success(function(data) {
 			console.log("ImageController - created image details",data);
 			$location.path("/image");
