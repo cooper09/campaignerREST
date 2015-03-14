@@ -18,24 +18,13 @@ var Campaign = function()
 	this.launch = new Date();
 	this.drawing = new Date();
 	this.campaignId = null;
-	this.cityId = null;
-	this.isSpecial = false;
+	this.countryId = null;
 	this.active = false;
-	this.tier1MSP = {
-		msp:null,
-		count:0
+	this.image = {
+		label: null
 	};
-	this.tier2MSP = {
-		msp:null,
-		count:0
-	};
-	this.tier3MSP = {
-		msp:null,
-		count:0
-	};
-	this.special = {
-		msp:null,
-		count:0
+	this.video = {
+		video:null
 	};
 }
 
