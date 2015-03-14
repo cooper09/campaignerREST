@@ -10,17 +10,24 @@ function loadUp($rootScope, $scope, $http ) {
     console.log("loadUp image id: " + currentId );
   });//end scope on campaign
  
-   $scope.uploadFile = function(files,type) {
+
+//Angular upload Function  
+$scope.uploadFile = function(files,type) {
     console.log("file type: ", files[0].name );
 
-    var label = document.getElementById('imagelabel');
-    console.log("file label: " + $(label).text() );
-   /*  $http.post(endpoint() + "image/"+currentId, fd, {
-            headers: {'Content-Type': undefined },
-            transformRequest: angular.identity
-        }).success( function(data) {
-            console.log("loadImages - load claim image:  ",data);
-          }) */
+    var file =  files[0];
+    var filename = files[0].name;
+
+    var Image = function()
+              {
+                this.imageId = "#",
+                this.label =  "unlabeled image",
+                this.location =  "www"
+              }
+
+    var label = document.getElementById('imagelabel').value;
+    console.log("file label: " + label );
+    var location = "https://s3-us-west-2.amazonaws.com/polyimages/"+ filename;
 
     AWS.config.update({
         accessKeyId: "AKIAJ7C7LFEZRSDM7BMA",
@@ -31,15 +38,36 @@ function loadUp($rootScope, $scope, $http ) {
 
     var results = document.getElementById('results');
 
-    var file =  files[0];
-    var filename = files[0].name;
+  
       if (file) {
-    /*    var params = {Key: file.name, ContentType: file.type, Body: file};
+      var params = {Key: file.name, ContentType: file.type, Body: file};
         bucket.upload(params, function (err, data) {
           console.log(err);
           results.innerHTML = err ? 'ERROR!' : 'UPLOADED.';
       
-        });  */
+        });  
+
+       var imageObj = { 
+                    'imageId' : '#', 
+                    'label':  label,
+                    'location': location
+                  }
+
+            $.ajax({
+              url : "http://localhost:8081/image",
+              type: "POST",
+              data : imageObj,
+              dataType: 'json',
+              success: function(data, textStatus, jqXHR)
+              {
+                  console.log("POST succeded: " , textStatus + " jqXHR: " ,  jqXHR );
+              },
+              error: function (jqXHR, textStatus, errorThrown)
+              {
+              console.log("POST failed: " + errorThrown + " textStatus: " + textStatus );
+              }
+          });//end ajax post 
+
       } else {
         results.innerHTML = 'Nothing to upload.';
 	  }

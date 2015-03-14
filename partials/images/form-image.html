@@ -8,6 +8,13 @@
 		
 		Label:  <input type="text" ng-model="image.label" id="imagelabel"/><br/>
 		<p></p>
+		<div id="imageupload">
+	<div ng-controller="loadUp">
+		<label>Select Image image:</label>
+		<input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files,'claim')"/>
+	</div><!-- end loadup -->
+	<div id="results"></div>
+	<p></p>
 		<button ng-click="saveItem(image)">{{saveButtonLabel}}</button>
 		<button ng-click="deleteItem(image)" ng-show="{{hasDeleteButton}}">DELETE</button>
 	</form>
@@ -21,12 +28,7 @@
 <input type="file" name="userPhoto" />
 <input type="submit" value="Upload Image" name="submit">
 </form> -->
-<div id="imageupload">
-	<div ng-controller="loadUp">
-		<label>Select Image image:</label>
-		<input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files,'claim')"/>
-	</div><!-- end loadup -->
-	<div id="results"></div>
+
 </div><!-- end imageupload -->
 <div>
 	<b>Current Detail image</b><br/>
