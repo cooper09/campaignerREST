@@ -48,10 +48,10 @@ campaignControllers.controller('CampaignListController', ['$scope', 'campaignFac
 	
 	// get campaigns
 
-	campaignFactory.get().success(function(data) {
+/*	campaignFactory.get().success(function(data) {
 		console.log("campfactory list data: " , data);
 		$scope.campaigns = data;
-	}); 
+	}); */
 
 	
 	// methods for dynamically creating campaign cells
@@ -95,8 +95,10 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	$scope.drawingDate;
 	$scope.drawingDate;
 	
-
-	 console.log("current campaign launch date: " + $scope.campaign );
+	 console.log("current campaigns: " + $rootScope.campaigns );
+	 console.log("current countries: " + $rootScope.countries );
+	 console.log("current images: " + $scope.images );
+	 console.log("current legals: " + $scope.legals );
 
 	//$scope.$on('msps-loaded', function(event, args) {
 		
@@ -170,7 +172,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 		$scope.video = $scope.campaign.video;
 	// now that we have our campaign set it to root scope 
 	//	dataFactory.setCampaign($scope.campaign);
-
+		$rootScope.$broadcast('campaign-loaded');
 	}).error (function(data) {
 		alert("GET CAMPAIGN - ERROR: "+  data );
 	}); 

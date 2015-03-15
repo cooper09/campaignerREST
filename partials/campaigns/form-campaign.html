@@ -13,27 +13,38 @@
 		<input type="text" ng-model="drawingDate" ng-change="onDrawingDateChanged(drawingDate)" /><br />
 		<p></p>
 		<label>Country:</label>
-		<input type="text" ng-model="country" ng-change="onDrawingDateChanged(country)" /><br />
+		<input type="text" ng-model="country" ng-change="onCountryChanged(country)" /><br />
 		<p></p>
 		<label>Image:</label>
-		<input type="text" ng-model="image" ng-change="onDrawingDateChanged(image)" /><br />
+		<input type="text" ng-model="image" ng-change="onImageChanged(image)" /><br />
 		<p></p>
 		<label>Video:</label>
-		<input type="text" ng-model="video" ng-change="onDrawingDateChanged(video)" /><br />
+		<input type="text" ng-model="video" ng-change="onVideoChanged(video)" /><br />
 		<p></p>
-		
+		<label>country:</label>
+		<span ng-controller="countryController">
+				     <select 
+				      ng-model="selectedOption" 
+				      ng-options="option.value as option.country for option in options"
+				      ng-change="changeMe(selectedOption)"
+				      id="Country"
+				      >
+				    </select>
+				  </span>
+		<p></p>
+
 		<label>Image:</label>
 		<select ng-model="campaign.imageId">
 			<option ng-repeat="item in images" ng-selected="{{campaign.imageId == item.data.imageId}}">{{item.data.label}}
 			</option>
 		</select><br />
-
+		<p></p>
 		<label>Video:</label>
 		<select ng-model="campaign.videoId">
 			<option ng-repeat="item in videos" ng-selected="{{campaign.videoId == item.data.imageId}}">{{item.data.label}}
 			</option>
 		</select><br />
-
+		<p></p>
 
 		</div>
 		<label>Active?</label>

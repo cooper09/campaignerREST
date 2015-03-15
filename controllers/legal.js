@@ -35,13 +35,6 @@ legalControllers.controller('LegalListController', ['$scope', '$http', '$locatio
 	{
 		$location.path("#/legal/new")
 	}
-	
-
-	legalFactory.get().success(function(data) {
-		console.log(" current LIST of legal docs: ", data );
-
-		$scope.legals = data;
-	});
 }]);
 
 

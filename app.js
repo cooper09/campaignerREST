@@ -6,7 +6,8 @@ var mainApp = angular.module('mainApp', [
   'campaignControllers',
   'countryControllers',
   'imageControllers', 
-  'legalControllers'
+  'legalControllers',
+  'selectControllers'
 ]);
 
 mainApp.config(['$routeProvider', function($routeProvider) {
@@ -71,13 +72,38 @@ var testController = angular.module('testController', []);
 var dateController = angular.module('dateController', []);
 var dataController = angular.module('dataController', []);
 
-mainApp.controller('testController', ['$scope', '$rootScope', '$filter', 'testFactory', function($scope, $rootScope, $filter, testFactory ) {
+mainApp.controller('testController', ['$scope', '$rootScope', '$filter', 'campaignFactory','countryFactory','imageFactory','legalFactory', function($scope, $rootScope, $filter, campaignFactory, countryFactory, imageFactory, legalFactory ) {
 
 	$scope.init = function() {
 		console.log("Test Controller in Control!!!");
-		$scope.datevalue = new Date(2014, 9, 22);
+		//get all scope data for campaingns, countries, images and legal docs
 
-	//	console.log("currentDate: " + currentDate );
+
+	campaignFactory.get().success(function(data) {
+		console.log("campfactory list data: " , data);
+		$scope.campaigns = data;
+		$rootScope.campaigns = $scope.campaigns;
+	}); 
+
+	countryFactory.get().success(function(data) {
+		console.log("My list of countries: " , data);
+		$scope.countries = data;
+		$rootScope.countries = $scope.countries;
+
+	}); 
+
+	imageFactory.get().success(function(data) {
+		console.log(" current LIST of images: ", data );
+		$scope.images = data;
+		$rootScope.images = $scope.images;
+	});
+
+	legalFactory.get().success(function(data) {
+		console.log(" current LIST of legal docs: ", data );
+		$scope.legals = data;
+		$rootScope.legals = $scope.legals;
+	});
+
 	}
 
 	$scope.clickMe = function() {
@@ -94,6 +120,7 @@ mainApp.controller('testController', ['$scope', '$rootScope', '$filter', 'testFa
 	$scope.$on('scanner-started', function(event, args) {
 		 var anyThing = args.any;
 		// do what you want to do
+		console.log('event: ', event );
 		console.log("broadcast caught: " + args.any );
 
 	});

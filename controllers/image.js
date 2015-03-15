@@ -33,12 +33,6 @@ imageControllers.controller('ImageListController', ['$scope', 'imageFactory', fu
 	{
 		alert("coming soon");
 	}
-	
-	imageFactory.get().success(function(data) {
-		console.log(" current LIST of images: ", data );
-		$scope.images = data;
-		
-	});
 }]);
 
 /*

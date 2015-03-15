@@ -37,11 +37,11 @@ countryControllers.controller('CountryListController', ['$scope', 'countryFactor
 
 	$scope.status;
 	
-	countryFactory.get().success(function(data) {
+	/*countryFactory.get().success(function(data) {
 		console.log("My list of countries: " , data);
 		$scope.countries = data;
 		//console.log("My list of countries: " , data[0].countries[0].country);
-	}); 
+	}); */
 
 	// methods for dynamically creating campaign cells
 	$scope.renderHtml = function (country) {
