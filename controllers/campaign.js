@@ -13,12 +13,12 @@ var campaignControllers = angular.module('campaignControllers', []);
 */
 var Campaign = function()
 {
+	this.campaignId = null;
 	this.title = "untitled campaign";
 	this.description = "campaign description";
 	this.launch = new Date();
-	this.drawing = new Date();
-	this.campaignId = null;
-	this.countryId = null;
+	this.end = new Date();
+	this.country = null;
 	this.active = false;
 	this.image = {
 		label: null
@@ -26,6 +26,7 @@ var Campaign = function()
 	this.video = {
 		video:null
 	};
+	this.clicks = 0;
 }
 
 /*
@@ -45,14 +46,6 @@ campaignControllers.controller('CampaignListController', ['$scope', 'campaignFac
 	{
 		console.log("createCampaign");
 	}
-	
-	// get campaigns
-
-/*	campaignFactory.get().success(function(data) {
-		console.log("campfactory list data: " , data);
-		$scope.campaigns = data;
-	}); */
-
 	
 	// methods for dynamically creating campaign cells
 	$scope.renderHtml = function (campaign) {
