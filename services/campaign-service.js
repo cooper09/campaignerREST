@@ -29,10 +29,10 @@ angular.module('mainApp').factory('campaignFactory', ['$http', function($http) {
 
 	campaignFactory.update =  function(campaign) {
 		// cooper s - collec all the current campaign data for the update
-		console.log("campaignFactory.update: " , campaign.launch );
-		var campaignId = campaign.campaignId;
+		console.log("campaignFactory.update title: " , campaign.title );
+		var campaignId = campaign.campaignId.toString();
 	
-		return $http.put(endpoint()+'campaign/' + campaignId, campaign, {} );
+		return $http.post(endpoint()+'campaign/' + campaignId, campaign, {} );
 	}
 	
 	campaignFactory.getCities =  function() {

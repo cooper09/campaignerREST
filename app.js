@@ -74,6 +74,8 @@ var dataController = angular.module('dataController', []);
 
 mainApp.controller('testController', ['$scope', '$rootScope', '$filter', 'campaignFactory','countryFactory','imageFactory','legalFactory', function($scope, $rootScope, $filter, campaignFactory, countryFactory, imageFactory, legalFactory ) {
 
+	var campArr = [];
+
 	$scope.init = function() {
 		console.log("Test Controller in Control!!!");
 		//get all scope data for campaingns, countries, images and legal docs
@@ -83,6 +85,9 @@ mainApp.controller('testController', ['$scope', '$rootScope', '$filter', 'campai
 		console.log("campfactory list data: " , data);
 		$scope.campaigns = data;
 		$rootScope.campaigns = $scope.campaigns;
+		campArr = $scope.campaigns;
+		$scope.currentCampaignId = campArr.length;
+		console.log("App.js - current campaign id: ", campArr );
 	}); 
 
 	countryFactory.get().success(function(data) {
@@ -105,6 +110,8 @@ mainApp.controller('testController', ['$scope', '$rootScope', '$filter', 'campai
 	});
 
 	}
+
+
 
 	$scope.clickMe = function() {
 		console.log("I've been clicked...");

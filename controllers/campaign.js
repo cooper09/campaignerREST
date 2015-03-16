@@ -29,6 +29,12 @@ var Campaign = function()
 	this.clicks = 0;
 }
 
+//usefull options
+
+var selectedCountry;
+var selectedImage;
+var selectedVideo;
+
 /*
 	CampaignListController
 	• display list of campaign items
@@ -87,15 +93,19 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	$scope.hasDeleteButton = true;
 	$scope.drawingDate;
 	$scope.drawingDate;
+
+	var countries = $scope.countries;
+	var images = $scope.images;
 	
 	 console.log("current campaigns: " + $rootScope.campaigns );
 	 console.log("current countries: " + $rootScope.countries );
 	 console.log("current images: " + $scope.images );
 	 console.log("current legals: " + $scope.legals );
+	 console.log("current campaign:" + $scope.campaign );
 
-	//$scope.$on('msps-loaded', function(event, args) {
-		
-	//});//end scope on campaign
+	$scope.$on('campaign-loaded', function(event, args) {
+		console.log("Campaign loaded: " + args );	
+	});//end scope on campaign
 	
 	
 	// launch date change handler
@@ -112,12 +122,20 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 		$scope.campaign.drawing = newDrawingDate.getTime()/1000;
 	}
 	
-	$scope.changeMSP = function (selected) {
-		alert("changeMSP.selected: " +  selected);
+	$scope.changeCountry = function (selected) {
+
+		alert("changeCountry.selected: " + selected + " country: " + $scope.countries[selected].country );
+		selectedCountry = $scope.countries[selected].country
+	}
+
+	$scope.changeImage = function (selected) {
+		alert("changeImage.selected: " +  selected + " image: " + $scope.images[selected].label );
+		selectedImage = $scope.images[selected].label
 	}
 	
 	// delete campaign method
 	$scope.deleteItem = function(){
+						alert("Delete item: "+ $scope.campaign);
 		campaignFactory.delete($scope.campaign.campaignId).success(function(data) {
 			console.log("deleted campaign ",data);
 			$location.path("/campaign");
@@ -127,13 +145,9 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	// save campaign method
 	$scope.saveItem = function(campaign)
 	{   
-
-		console.log("CampaignDetailsController.saveItem - updating: ", campaign.campaignId );
-		console.log("CampaignDetailsController.saveItem - updating launch date: ", campaign.launch );
-	
-		console.log("CampaignDetailsController.saveItem - updating epoch launch date: ", campaign.launch );
-		console.log("CampaignDetailsController.saveItem - updating epoch drawing date: ", campaign.drawing );
-
+		alert("Time to update: "+ campaign.campaignId );
+		var campId = campaign.campaignId.toString();
+		campaign.campaignId = campId;
 		campaignFactory.update(campaign)
 			.success(function(data) {
 				console.log("CampaignDetailsController.saveItem - update returned: ",data);
@@ -151,11 +165,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 		// get campaign from response
 		console.log("CampaignDetailsController.getCampaign: " , data );
 		$scope.campaign = data;
-		
-		console.log("CampaignDetailsController.getCampaign - launchDate: " , $scope.campaign.launch);
-		console.log("CampaignDetailsController.getCampaign - drawingDate: " , $scope.campaign.end);
-		console.log("CampaignDetailsController.getCampaign - country: " , $scope.campaign.country);
-		console.log("CampaignDetailsController.getCampaign - video: " , $scope.campaign.video);
+
 
 		// set drawing and launch dates on scope
 		$scope.drawingDate = formatDateToString(new Date( $scope.campaign.end));
@@ -165,7 +175,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 		$scope.video = $scope.campaign.video;
 	// now that we have our campaign set it to root scope 
 	//	dataFactory.setCampaign($scope.campaign);
-		$rootScope.$broadcast('campaign-loaded');
+		$rootScope.$broadcast('campaign-loaded', $scope.campaign );
 	}).error (function(data) {
 		alert("GET CAMPAIGN - ERROR: "+  data );
 	}); 
@@ -225,8 +235,6 @@ campaignControllers.controller('CampaignCreateController', ['$scope', '$http','$
 	var displayLaunchDate = formatDate($scope.campaign.launch);
 	var displayDrawingDate = formatDate($scope.campaign.drawing);
 
-	console.log("New Campaign cityid: ", $scope.campaign.cityId );
-
 	$scope.campaign.launch = displayLaunchDate;
 	$scope.campaign.drawing = displayDrawingDate;
 
@@ -237,52 +245,54 @@ campaignControllers.controller('CampaignCreateController', ['$scope', '$http','$
 		var utcDate2 = new Date( $scope.campaign.drawing);
 		$scope.campaign.launch =  utcDate1.getTime()/1000;
 		$scope.campaign.drawing = utcDate2.getTime()/1000;
-
+ 
 		console.log("New Campaign save launch date: " + $scope.campaign.launch );
 		console.log("New Campaign save drawing date: " + $scope.campaign.drawing );
 
-		$scope.campaign.cityId = "c7d00b20-fd5d-4538-96e9-0eadacd1bd04";
 
 		if ($scope.campaign.active == false ) {
 			$scope.campaign.active = 0;
 		}
 
-		alert("campaign special: ", $scope.campaign.special );
-		console.log("campaign special: ", $scope.campaign.special );
+		var tempId = $scope.campaigns.length + 1;
+		var currentId = tempId.toString();
+		alert("campaign current id: "+ currentId);
 
-		$http.post(endpoint()+'campaign/', $scope.campaign)
+		$scope.campaign.country = selectedCountry;
+		$scope.campaign.image.label = selectedImage;
+		$scope.campaign.video.video = "test video";
+
+		var campaignObj = { 
+							campaignId: currentId,		//$scope.campaigns.length,
+  							title: $scope.campaign.title, 
+  							description: $scope.campaign.description, 
+  							launch: $scope.campaign.launch, 
+  							end: $scope.campaign.drawing,
+  							country: $scope.campaign.country,
+  							image: $scope.campaign.image.label,
+  							video: $scope.campaign.video.video,
+  							clicks: 0
+  							}
+
+		$http.post(endpoint()+'campaign/', campaignObj )
 		.success(function(data) {
 			console.log("CampaignCreateController.created campaign details",data);
 			$location.path("/campaign");
 			
-		});
+		}); 
 	}
 	
-	// get citys
-	$http.get(endpoint() +'city').
-	success(function(data) {
-		$scope.cities = data.citys;
-		console.log("get city information: ", $scope.cities );
-	});
-
-	
-	// get msps
-	$http.get(endpoint() + 'msp').
-	success(function(data) {
-		console.log("CampaignCreateController - created msp: ",data);
-		$scope.msps = data.msps;
-	});
 	
 	
 	function formatDate(date) {
-		  var hours = date.getHours();
+		/*  var hours = date.getHours();
 		  var minutes = date.getMinutes();
 		  var ampm = hours >= 12 ? 'pm' : 'am';
 		  hours = hours % 12;
 		  hours = hours ? hours : 12; // the hour '0' should be '12'
 		  minutes = minutes < 10 ? '0'+minutes : minutes;
 		  var strTime = hours + ':' + minutes + ' ' + ampm;
-		  return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear();
+		  return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear(); */
 		}
 }]);//End Create controller
 
