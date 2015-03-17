@@ -97,14 +97,8 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	var countries = $scope.countries;
 	var images = $scope.images;
 	
-	 console.log("current campaigns: " + $rootScope.campaigns );
-	 console.log("current countries: " + $rootScope.countries );
-	 console.log("current images: " + $scope.images );
-	 console.log("current legals: " + $scope.legals );
-	 console.log("current campaign:" + $scope.campaign );
-
 	$scope.$on('campaign-loaded', function(event, args) {
-		alert("Campaign details - campaign loaded: ", args.title );
+		alert("Campaign details - campaign loaded: "+  args);
 	});//end scope on campaign
 	
 	
@@ -123,19 +117,19 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	}
 	
 	$scope.changeCountry = function (selected) {
-
-		//alert("changeCountry.selected: " + selected + " country: " + $scope.countries[selected].country );
-		selectedCountry = $scope.countries[selected].country;
 		$scope.country  = $scope.countries[selected].country;
-		//alert("Do we finally have a country? " + $scope.country );
 	}
 
 	$scope.changeImage = function (selected) {
-		alert("changeImage.selected: " +  selected + " image: " + $scope.images[selected].label );
 		$scope.image = $scope.images[selected].label;
-
 	}
 	
+	$scope.changeVideo = function (selected) {
+		alert("changeVideo.selected: " +  selected + " video: " + $scope.videos[selected].label );
+		$scope.video = $scope.videos[selected].label;
+
+	}
+
 	// delete campaign method
 	$scope.deleteItem = function(){
 		alert("Delete item: "+ $scope.campaign);
@@ -148,11 +142,12 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	// save campaign method
 	$scope.saveItem = function(campaign)
 	{   
-		alert("Details SaveIteim - Time to update and our image: "+ campaign.image + " scope.image: " + $scope.image );
+		alert("Details SaveIteim - Time to update and our video: "+ campaign.video + " scope.video: " + $scope.video );
 		var campId = campaign.campaignId.toString();
 		campaign.campaignId = campId;
 		campaign.country = $scope.country;
 		campaign.image = $scope.image;
+		campaign.video = $scope.video;
 		campaignFactory.update(campaign)
 			.success(function(data) {
 				console.log("CampaignDetailsController.saveItem - update returned: ",data);
@@ -166,39 +161,23 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	console.log("Details Controller - saveItem get campaign: " + $routeParams.itemId ); 
 
 	campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
-		
 		// get campaign from response
-		console.log("CampaignDetailsController.getCampaign: " , data );
 		$scope.campaign = data;
-		alert("CampaignDetailsController.getCampaign: " + $scope.campaign.image );
 		// set drawing and launch dates on scope
 		$scope.drawingDate = formatDateToString(new Date( $scope.campaign.end));
 		$scope.launchDate = formatDateToString(new Date( $scope.campaign.launch));
 		$scope.country =  $scope.campaign.country;
 		//alert("getCampaign - the country in question: " + $scope.country );
 		$scope.image = $scope.campaign.image;
-		alert("GetCampaign - scope image: " + $scope.image );
 		$scope.video = $scope.campaign.video;
+
 	// now that we have our campaign set it to root scope 
 	//	dataFactory.setCampaign($scope.campaign);
 		$rootScope.$broadcast('campaign-loaded', $scope.campaign );
 	}).error (function(data) {
 		alert("GET CAMPAIGN - ERROR: "+  data );
 	}); 
-	
-	//GET add'l data here....
-/*	campaignFactory.getCities( $routeParams.itemId ).success(function(data) {
-		console.log("citys",data.citys)
-		$scope.cities = data.citys;
-		
-	});
-	
-	// get mspsd
-	campaignFactory.getMSPs( $routeParams.itemId ).success(function(data) {
-		console.log("msps",data.msps)
-		$scope.msps = data.msps;
-		$rootScope.$broadcast('msps-loaded');
-	});  */
+
 
 //cooper s - need a little standalone date formatter 
 	function formatDate(date) {

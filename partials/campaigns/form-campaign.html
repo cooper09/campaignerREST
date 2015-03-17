@@ -12,9 +12,6 @@
 		<label>End Date:</label>
 		<input type="text" ng-model="drawingDate" ng-change="onDrawingDateChanged(drawingDate)" /><br />
 		<p></p>
-		<label>Video:</label>
-		<input type="text" ng-model="video" ng-change="onVideoChanged(video)" /><br />
-		<p></p>
 		<label>country:</label>
 		<span ng-controller="countryController">
 				     <select 
@@ -38,7 +35,17 @@
 				    </select>
 				  </span>
 		<p></p>
-	
+		<label>Video:</label>
+		<span ng-controller="videoController">
+				     <select 
+				      ng-model="selectedOption" 
+				      ng-options="option.value as option.label for option in options"
+				      ng-change="changeVideo(selectedOption)"
+				      id="Video"
+				      >
+				    </select>
+				  </span> 
+		<p></p>
 		</div>
 		<label>Active?</label>
 		<input type="radio" ng-model="campaign.active" data-ng-value="true"/>true

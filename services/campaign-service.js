@@ -35,12 +35,8 @@ angular.module('mainApp').factory('campaignFactory', ['$http', function($http) {
 		return $http.post(endpoint()+'campaign/' + campaignId, campaign, {} );
 	}
 	
-	campaignFactory.getCities =  function() {
-		return $http.get(endpoint()+'/city');
-	}
-
-	campaignFactory.getMSPs =  function() {
-		return $http.get(endpoint()+'/msp');
+	campaignFactory.getVideos =  function() {
+		return $http.get(endpoint()+'/video');
 	}
 
 	return campaignFactory;

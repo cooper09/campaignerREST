@@ -103,6 +103,14 @@ mainApp.controller('testController', ['$scope', '$rootScope', '$filter', 'campai
 		$rootScope.images = $scope.images;
 	});
 
+	//GET add'l data here....
+	campaignFactory.getVideos().success(function(data) {
+		console.log("videos",data)
+		$scope.videos = data;
+		$rootScope.videos = $scope.videos;
+		$rootScope.$broadcast('videos-loaded');
+	});
+
 	legalFactory.get().success(function(data) {
 		console.log(" current LIST of legal docs: ", data );
 		$scope.legals = data;
@@ -110,8 +118,6 @@ mainApp.controller('testController', ['$scope', '$rootScope', '$filter', 'campai
 	});
 
 	}
-
-
 
 	$scope.clickMe = function() {
 		console.log("I've been clicked...");

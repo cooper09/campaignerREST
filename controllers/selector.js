@@ -99,9 +99,7 @@ selectControllers.controller('imageController', ['$rootScope','$scope', function
                     //set current campaigns tier3 msp to new selection
             for ( var i=0 ; i <  imageArr.length ; i++) {
                         if ( image ==  i) {
-                            alert("imageController - sending image: " + imageArr[i].label );
                             $scope.image  =  imageArr[i].label;
-                            alert("Our new scope image: " + $scope.image );
                         } //end if          
                     }//end for loop..
 
@@ -118,19 +116,37 @@ selectControllers.controller('videoController', ['$rootScope','$scope', function
     var videoArr = new Array();
     var videoIds = new Array();
 
-    console.log('videoController- lets checkout our videos data: ', $scope.videos[0].location );
+    console.log('videoController- lets checkout our videos data: ', $scope.videos );
     //create an array of option objects { name, value } pairs 
 
     for ( var i=0 ; i <  $scope.videos.length ; i++) {
-        imageArr.push({country:$scope.videos[0].location, value: i });
+        videoArr.push({label:$scope.videos[i].label, value: i });
     //    countryIds.push({countryId: $scope.countries[i].countryId, country: $scope.countries[i].data.country });
     }
-    
     var options = videoArr;
     // make sure the selector get the final options
         $scope.options = options;
         $scope.selectedOption = 0; 
-        console.log("Videos selected option: ", $scope.options );
 //check to see if we have our campaign
+     for ( var i=0 ; i <  $scope.videos.length ; i++) {
+        console.log("VideoSelector doing its thing: " + $scope.video );
+        if (videoArr[i].label == $scope.video ) {
+            $scope.selectedOption = i;
+        }
+    }//end for loop
 
+
+  $scope.$watch('selectedOption', function(newValue, oldValue) {
+    // handle selection change ...
+        console.log("videoController - selection: " + $scope.selectedOption);
+                    
+        var video = $scope.selectedOption;
+                    //set current campaigns tier3 msp to new selection
+            for ( var i=0 ; i <  videoArr.length ; i++) {
+                        if ( video ==  i) {
+                            $scope.video  =  videoArr[i].label;
+                        } //end if          
+                    }//end for loop..
+
+                });//end watch selectedOption 
 }]);// End Video Controller
