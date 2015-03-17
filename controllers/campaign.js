@@ -121,18 +121,15 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	}
 
 	$scope.changeImage = function (selected) {
-		$scope.image = $scope.images[selected].label;
+		$scope.image = $scope.images[selected].location;
 	}
 	
 	$scope.changeVideo = function (selected) {
-		alert("changeVideo.selected: " +  selected + " video: " + $scope.videos[selected].label );
-		$scope.video = $scope.videos[selected].label;
-
+		$scope.video = $scope.videos[selected].location;
 	}
 
 	// delete campaign method
 	$scope.deleteItem = function(){
-		alert("Delete item: "+ $scope.campaign);
 		campaignFactory.delete($scope.campaign.campaignId).success(function(data) {
 			console.log("deleted campaign ",data);
 			$location.path("/campaign");
@@ -167,7 +164,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 		$scope.drawingDate = formatDateToString(new Date( $scope.campaign.end));
 		$scope.launchDate = formatDateToString(new Date( $scope.campaign.launch));
 		$scope.country =  $scope.campaign.country;
-		//alert("getCampaign - the country in question: " + $scope.country );
+
 		$scope.image = $scope.campaign.image;
 		$scope.video = $scope.campaign.video;
 
@@ -241,7 +238,6 @@ campaignControllers.controller('CampaignCreateController', ['$scope', '$http','$
 
 		var tempId = $scope.campaigns.length + 1;
 		var currentId = tempId.toString();
-		//alert("CampaignCreate - campaign country id: "+ selectedCountry + " just for laughs " + $scope.campaign.country);
 
 		$scope.campaign.country = selectedCountry;
 		$scope.campaign.image.label = selectedImage;
