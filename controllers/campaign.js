@@ -104,7 +104,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	 console.log("current campaign:" + $scope.campaign );
 
 	$scope.$on('campaign-loaded', function(event, args) {
-		console.log("Campaign loaded: " + args );	
+		alert("Campaign details - campaign loaded: ", args.title );
 	});//end scope on campaign
 	
 	
@@ -124,18 +124,21 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	
 	$scope.changeCountry = function (selected) {
 
-		alert("changeCountry.selected: " + selected + " country: " + $scope.countries[selected].country );
-		selectedCountry = $scope.countries[selected].country
+		//alert("changeCountry.selected: " + selected + " country: " + $scope.countries[selected].country );
+		selectedCountry = $scope.countries[selected].country;
+		$scope.country  = $scope.countries[selected].country;
+		//alert("Do we finally have a country? " + $scope.country );
 	}
 
 	$scope.changeImage = function (selected) {
 		alert("changeImage.selected: " +  selected + " image: " + $scope.images[selected].label );
-		selectedImage = $scope.images[selected].label
+		$scope.image = $scope.images[selected].label;
+
 	}
 	
 	// delete campaign method
 	$scope.deleteItem = function(){
-						alert("Delete item: "+ $scope.campaign);
+		alert("Delete item: "+ $scope.campaign);
 		campaignFactory.delete($scope.campaign.campaignId).success(function(data) {
 			console.log("deleted campaign ",data);
 			$location.path("/campaign");
@@ -145,9 +148,11 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	// save campaign method
 	$scope.saveItem = function(campaign)
 	{   
-		alert("Time to update: "+ campaign.campaignId );
+		alert("Details SaveIteim - Time to update and our image: "+ campaign.image + " scope.image: " + $scope.image );
 		var campId = campaign.campaignId.toString();
 		campaign.campaignId = campId;
+		campaign.country = $scope.country;
+		campaign.image = $scope.image;
 		campaignFactory.update(campaign)
 			.success(function(data) {
 				console.log("CampaignDetailsController.saveItem - update returned: ",data);
@@ -165,13 +170,14 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 		// get campaign from response
 		console.log("CampaignDetailsController.getCampaign: " , data );
 		$scope.campaign = data;
-
-
+		alert("CampaignDetailsController.getCampaign: " + $scope.campaign.image );
 		// set drawing and launch dates on scope
 		$scope.drawingDate = formatDateToString(new Date( $scope.campaign.end));
 		$scope.launchDate = formatDateToString(new Date( $scope.campaign.launch));
-		$scope.country = $scope.campaign.country;
+		$scope.country =  $scope.campaign.country;
+		//alert("getCampaign - the country in question: " + $scope.country );
 		$scope.image = $scope.campaign.image;
+		alert("GetCampaign - scope image: " + $scope.image );
 		$scope.video = $scope.campaign.video;
 	// now that we have our campaign set it to root scope 
 	//	dataFactory.setCampaign($scope.campaign);
@@ -246,7 +252,7 @@ campaignControllers.controller('CampaignCreateController', ['$scope', '$http','$
 		$scope.campaign.launch =  utcDate1.getTime()/1000;
 		$scope.campaign.drawing = utcDate2.getTime()/1000;
  
-		console.log("New Campaign save launch date: " + $scope.campaign.launch );
+		console.log("New Campaign save country: " + $scope.country );
 		console.log("New Campaign save drawing date: " + $scope.campaign.drawing );
 
 
@@ -256,7 +262,7 @@ campaignControllers.controller('CampaignCreateController', ['$scope', '$http','$
 
 		var tempId = $scope.campaigns.length + 1;
 		var currentId = tempId.toString();
-		alert("campaign current id: "+ currentId);
+		//alert("CampaignCreate - campaign country id: "+ selectedCountry + " just for laughs " + $scope.campaign.country);
 
 		$scope.campaign.country = selectedCountry;
 		$scope.campaign.image.label = selectedImage;
@@ -268,7 +274,7 @@ campaignControllers.controller('CampaignCreateController', ['$scope', '$http','$
   							description: $scope.campaign.description, 
   							launch: $scope.campaign.launch, 
   							end: $scope.campaign.drawing,
-  							country: $scope.campaign.country,
+  							country: "USA",
   							image: $scope.campaign.image.label,
   							video: $scope.campaign.video.video,
   							clicks: 0

@@ -14,12 +14,12 @@ selectControllers.controller('countryController', ['$rootScope','$scope', functi
     var countryArr = new Array();
     var countryIds = new Array();
 
-    //console.log('countryController- lets checkout our countries data: ', $scope.countries[0].country );
+    //alert('countrySelector- lets checkout our countries data: '+ $scope.campaign.country );
     //create an array of option objects { name, value } pairs 
 
     for ( var i=0 ; i <  $scope.countries.length ; i++) {
-        countryArr.push({country: $scope.countries[i].country, value: i });
-    //    countryIds.push({countryId: $scope.countries[i].countryId, country: $scope.countries[i].data.country });
+       countryArr.push({country: $scope.countries[i].country, value: i });
+       countryIds.push({countryId: $scope.countries[i].countryId, country: $scope.countries[i].country });
     }
     
     var options = countryArr;
@@ -29,6 +29,35 @@ selectControllers.controller('countryController', ['$rootScope','$scope', functi
     //    console.log("Country selected option: ", $scope.options );
 //check to see if we have our campaign
 
+    for ( var i=0 ; i <  $scope.countries.length ; i++) {
+        if (countryArr[i].country == $scope.campaign.country ) {
+            $scope.selectedOption = i;
+        }
+    }
+    
+
+    $scope.$on('campaign-loaded', function(event, args) {
+        alert("Country Selector TEST - AH HAHHHH!!!!!");
+       /* alert("CountrySelecor - Campaign loaded: " + args.country + " country scope: "+ $scope.country );
+        $scope.selectedOption = 3; */
+    });//end scope on campaign
+
+    //capture new selection   
+                $scope.$watch('selectedOption', function(newValue, oldValue) {
+                    // handle selection change ...
+                    console.log("countryController - selection: " + $scope.selectedOption);
+                    
+                    var country = $scope.selectedOption;
+                    //set current campaigns tier3 msp to new selection
+                     for ( var i=0 ; i <  countryArr.length ; i++) {
+                        if ( country ==  i) {
+                            console.log("countryController - sending country: " + countryIds[i].country );
+                            $scope.country  = countryIds[i].country;
+                        } //end if          
+                    }//end for loop..
+
+                });//end watch selectedOption 
+           
 
 }]);// End country Controller
 
@@ -41,7 +70,7 @@ selectControllers.controller('imageController', ['$rootScope','$scope', function
     var imageArr = new Array();
     var imageIds = new Array();
 
-    console.log('imageController- lets checkout our countries data: ', $scope.images );
+    console.log('imageController- lets checkout our image data: ', $scope.images );
     //create an array of option objects { name, value } pairs 
 
     for ( var i=0 ; i <  $scope.images.length ; i++) {
@@ -55,6 +84,28 @@ selectControllers.controller('imageController', ['$rootScope','$scope', function
         $scope.selectedOption = 0; 
         console.log("Image selected option: ", $scope.options );
 //check to see if we have our campaign
+    for ( var i=0 ; i <  $scope.images.length ; i++) {
+        console.log("ImageSelector doing its thing: " + $scope.image );
+        if (imageArr[i].label == $scope.image ) {
+            $scope.selectedOption = i;
+        }
+    }
+    
+  $scope.$watch('selectedOption', function(newValue, oldValue) {
+    // handle selection change ...
+        console.log("imagecontroller - selection: " + $scope.selectedOption);
+                    
+        var image = $scope.selectedOption;
+                    //set current campaigns tier3 msp to new selection
+            for ( var i=0 ; i <  imageArr.length ; i++) {
+                        if ( image ==  i) {
+                            alert("imageController - sending image: " + imageArr[i].label );
+                            $scope.image  =  imageArr[i].label;
+                            alert("Our new scope image: " + $scope.image );
+                        } //end if          
+                    }//end for loop..
+
+                });//end watch selectedOption 
 
 }]);// End image Controller
 
@@ -82,4 +133,4 @@ selectControllers.controller('videoController', ['$rootScope','$scope', function
         console.log("Videos selected option: ", $scope.options );
 //check to see if we have our campaign
 
-}]);// End image Controller
+}]);// End Video Controller
