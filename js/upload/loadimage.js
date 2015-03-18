@@ -71,5 +71,68 @@ $scope.uploadFile = function(files,type) {
       } else {
         results.innerHTML = 'Nothing to upload.';
 	  }
-   }
+   }//end uploadFile
+
+ //Angular upload video Function  
+$scope.uploadVideo = function(files,currentId) {
+    console.log("file type: ", files[0].name );
+
+    var file =  files[0];
+    var filename = files[0].name;
+
+    var Video = function()
+              {
+                this.videoId = "#",
+                this.label =  "unlabeled image",
+                this.location =  "www"
+              }
+
+    var label = document.getElementById('videolabel').value;
+    console.log("file label: " + label );
+    var location = "https://s3-us-west-2.amazonaws.com/polyvideo/"+ filename;
+
+    AWS.config.update({
+        accessKeyId: "AKIAJ7C7LFEZRSDM7BMA",
+        secretAccessKey: "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"
+    });
+
+    var bucket = new AWS.S3({params: {Bucket: 'polyvideo'}});
+
+    var results = document.getElementById('results');
+  
+      if (file) {
+      var params = {Key: file.name, ContentType: file.type, Body: file};
+        bucket.upload(params, function (err, data) {
+          console.log(err);
+          results.innerHTML = err ? 'ERROR!' : 'UPLOADED.';
+
+        });  
+
+       var videoObj = { 
+                    'videoId' : currentId, 
+                    'label':  label,
+                    'location': location
+                  }
+
+            $.ajax({
+              url : "http://localhost:8081/video",
+              type: "POST",
+              data : videoObj,
+              dataType: 'json',
+              success: function(data, textStatus, jqXHR)
+              {
+                  console.log("POST succeded: " , textStatus + " jqXHR: " ,  jqXHR );
+              },
+              error: function (jqXHR, textStatus, errorThrown)
+              {
+              console.log("POST failed: " + errorThrown + " textStatus: " + textStatus );
+              }
+          });//end ajax post 
+
+      } else {
+        results.innerHTML = 'Nothing to upload.';
+    }
+   }//end uploadFile
+
+
 }//end function loadUp

@@ -53,6 +53,7 @@ selectControllers.controller('countryController', ['$rootScope','$scope', functi
                         if ( country ==  i) {
                             console.log("countryController - sending country: " + countryIds[i].country );
                             $scope.country  = countryIds[i].country;
+                            $rootScope.country = $scope.country;
                         } //end if          
                     }//end for loop..
 
@@ -74,7 +75,7 @@ selectControllers.controller('imageController', ['$rootScope','$scope', function
     //create an array of option objects { name, value } pairs 
 
     for ( var i=0 ; i <  $scope.images.length ; i++) {
-        imageArr.push({label: $scope.images[i].label, value: i });
+        imageArr.push({label: $scope.images[i].label, location:$scope.images[i].location , value: i });
     //    countryIds.push({countryId: $scope.countries[i].countryId, country: $scope.countries[i].data.country });
     }
     
@@ -100,6 +101,7 @@ selectControllers.controller('imageController', ['$rootScope','$scope', function
             for ( var i=0 ; i <  imageArr.length ; i++) {
                         if ( image ==  i) {
                             $scope.image  =  imageArr[i].label;
+                            $rootScope.image = imageArr[i].location;
                         } //end if          
                     }//end for loop..
 
@@ -120,7 +122,7 @@ selectControllers.controller('videoController', ['$rootScope','$scope', function
     //create an array of option objects { name, value } pairs 
 
     for ( var i=0 ; i <  $scope.videos.length ; i++) {
-        videoArr.push({label:$scope.videos[i].label, value: i });
+        videoArr.push({label:$scope.videos[i].label, location:$scope.videos[i].location , value: i });
     //    countryIds.push({countryId: $scope.countries[i].countryId, country: $scope.countries[i].data.country });
     }
     var options = videoArr;
@@ -145,6 +147,7 @@ selectControllers.controller('videoController', ['$rootScope','$scope', function
             for ( var i=0 ; i <  videoArr.length ; i++) {
                         if ( video ==  i) {
                             $scope.video  =  videoArr[i].label;
+                            $rootScope.video = videoArr[i].location;
                         } //end if          
                     }//end for loop..
 

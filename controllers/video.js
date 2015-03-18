@@ -6,7 +6,7 @@
 */
 var videoControllers = angular.module('videoControllers', []);
 
-var newImgId = "";
+var currentId = "";
 /*
 	Video Model
 */
@@ -15,7 +15,9 @@ var Video = function()
 	    this.data = {
 		videoId: null,
 		label: "unlabeled Video",
-		location: "www"
+		location: "www",
+		image: "genric image",
+		views: "0"
 	};
 }
 
@@ -24,7 +26,7 @@ var Video = function()
 	• display list Video items
 	• create new Video
 */
-videoControllers.controller('VideoListController', ['$scope', 'videoFactory', function($scope, videoFactory) {
+videoControllers.controller('VideoListController', ['$scope', 'videoFactory','$sce', function($scope, videoFactory, $sce ) {
 	
 	$scope.sectionName = "video";
 	$scope.createNewLink = "#/new/video";
@@ -34,7 +36,23 @@ videoControllers.controller('VideoListController', ['$scope', 'videoFactory', fu
 		alert("coming soon");
 	}
 
-	alert("Current list of videos: " + $scope.videos );
+	console.log("Current list of videos: " + $scope.videos );
+
+	// methods for dynamically creating campaign cells
+	$scope.renderHtml = function (video) {
+	//	return campaign.item;
+	//	return campaign ? $sce.trustAsHtml($scope.specialCell(campaign)) : $sce.trustAsHtml($scope.normalCell(campaign));
+    	return $sce.trustAsHtml($scope.normalCell(video));
+    };
+
+    $scope.normalCell = function(video)
+	{
+		return '<div><a href="#/video/'+video.videoId+'">'
+		+video.label+'</a><br/>'
+		+'</div><video id="viddy" width="320" height="240" autoplay><source id="source" src='+video.location+' type="video/mp4"</video><br/>';
+	}	
+
+	currentId = $scope.videos.length;
 
 }]);//end VideoListController
 
@@ -78,7 +96,6 @@ videoControllers.controller('VideoDetailsController', ['$rootScope','$scope','$h
 		$scope.video = data;
 		console.log("Got scope Video: " + $scope.video );
 	});
-	
 
 }]);//end VideoDetailsController
 
@@ -95,16 +112,25 @@ videoControllers.controller('VideoCreateController', ['$scope', '$http','$locati
 	console.log("VideoCreateController - new Video: ", $scope.video.data );
 	// save method
 	$scope.saveItem = function(){
-		console.log("TEST - VideoController - creating Video - label: ", $scope.video.data.label );
+		console.log("TEST - VideoController - creating Video - id: ", $scope.video.currentId );
+		console.log("TEST - VideoController - creating Video - label: ", $scope.video.label );
+		console.log("TEST - VideoController - creating Video - location: ", $scope.video.location );
+
+		var videoObj = { 
+							videoId: currentId,		//$scope.campaigns.length,
+  							label: $scope.campaign.label, 
+  							location: "https://s3-us-west-2.amazonaws.com/polyvideo/"+ "test.jpg", 
+  							clicks: "0"
+  							}
+
 		//console.log("VideoController - creating Video - data label: ", $scope.Video.data.label);
 
-		$http.post(endpoint()+'Video/', $scope.video.data).
-		/*$http.post(endpoint()+'new_Video.php?Video=test.jpg'). */
+	/*	$http.post(endpoint()+'Video/', $scope.video.data).
 		success(function(data) {
 			console.log("VideoController - created Video details",data);
 			$location.path("/video");
 			
-		});
+		}); */
 	}
 	
 }]);//end VideoCreateController

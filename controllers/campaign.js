@@ -20,12 +20,8 @@ var Campaign = function()
 	this.end = new Date();
 	this.country = null;
 	this.active = false;
-	this.image = {
-		label: null
-	};
-	this.video = {
-		video:null
-	};
+	this.image =  "";
+	this.video = ""
 	this.clicks = 0;
 }
 
@@ -125,6 +121,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	}
 	
 	$scope.changeVideo = function (selected) {
+		alert("Video changed at least...");
 		$scope.video = $scope.videos[selected].location;
 	}
 
@@ -202,7 +199,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	• save new campaign
 */
 
-campaignControllers.controller('CampaignCreateController', ['$scope', '$http','$location', function($scope, $http, $location) {
+campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope', '$http','$location', function($scope, $rootScope, $http, $location) {
 	
 	
 	console.log("CampaignCreateController - creating new campaign");
@@ -223,14 +220,15 @@ campaignControllers.controller('CampaignCreateController', ['$scope', '$http','$
 	// save method
 	$scope.saveItem = function(){
 
-		var utcDate1 = new Date( $scope.campaign.launch);
+		/*var utcDate1 = new Date( $scope.campaign.launch);
 		var utcDate2 = new Date( $scope.campaign.drawing);
 		$scope.campaign.launch =  utcDate1.getTime()/1000;
-		$scope.campaign.drawing = utcDate2.getTime()/1000;
+		$scope.campaign.drawing = utcDate2.getTime()/1000; */
  
-		console.log("New Campaign save country: " + $scope.country );
-		console.log("New Campaign save drawing date: " + $scope.campaign.drawing );
-
+		console.log("New Campaign: " , $scope.campaign );
+		console.log("New Campaign country: " , $rootScope.country );
+		console.log("New Campaign image: " , $rootScope.image );
+		console.log("New Campaign video: " , $rootScope.video );
 
 		if ($scope.campaign.active == false ) {
 			$scope.campaign.active = 0;
@@ -239,9 +237,11 @@ campaignControllers.controller('CampaignCreateController', ['$scope', '$http','$
 		var tempId = $scope.campaigns.length + 1;
 		var currentId = tempId.toString();
 
-		$scope.campaign.country = selectedCountry;
-		$scope.campaign.image.label = selectedImage;
-		$scope.campaign.video.video = "test video";
+
+		//$scope.campaign.country = selectedCountry;
+		//$scope.campaign.image.label = selectedImage;
+		//$scope.campaign.video.video = "test video";
+
 
 		var campaignObj = { 
 							campaignId: currentId,		//$scope.campaigns.length,
@@ -249,12 +249,13 @@ campaignControllers.controller('CampaignCreateController', ['$scope', '$http','$
   							description: $scope.campaign.description, 
   							launch: $scope.campaign.launch, 
   							end: $scope.campaign.drawing,
-  							country: "USA",
-  							image: $scope.campaign.image.label,
-  							video: $scope.campaign.video.video,
+  							country: $rootScope.country,
+  							image: $rootScope.image,
+  							video: $rootScope.video,
   							clicks: 0
   							}
 
+  		console.log("Final Campaign Object:", campaignObj );
 		$http.post(endpoint()+'campaign/', campaignObj )
 		.success(function(data) {
 			console.log("CampaignCreateController.created campaign details",data);

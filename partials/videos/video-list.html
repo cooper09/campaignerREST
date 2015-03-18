@@ -1,17 +1,10 @@
 <section class="listpage">
 	<!-- Sub Nav -->
 	<div ng-include="'partials/subnav-list.html'"></div>
-	
-	<!-- Image List -->
-	<ul class="list">
-		<li ng-repeat="item in videos" class="videolistitem">
-			<a href="#/video/{{item.videoId}}"> 
-				<div class="info">
-					<h2>{{item.label}}</h2>
-					<img ng-src="{{item.location}}"></img>
-				</div>
-				
-			</a>
-		</li>
-	</ul>  
+
+					<ul class="list">
+						<li ng-repeat="item in videos" class="videolistitem">
+							<p ng-bind-html="renderHtml(item)"></p>
+						</li>
+					</ul>  
 </section>
