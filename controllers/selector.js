@@ -30,7 +30,7 @@ selectControllers.controller('countryController', ['$rootScope','$scope', functi
 //check to see if we have our campaign
 
     for ( var i=0 ; i <  $scope.countries.length ; i++) {
-        if (countryArr[i].country == $scope.campaign.country ) {
+        if (countryArr[i].country == $scope.country ) {
             $scope.selectedOption = i;
         }
     }
