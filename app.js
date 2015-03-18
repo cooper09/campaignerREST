@@ -7,6 +7,7 @@ var mainApp = angular.module('mainApp', [
   'countryControllers',
   'imageControllers', 
   'legalControllers',
+  'videoControllers',
   'selectControllers'
 ]);
 
