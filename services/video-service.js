@@ -15,7 +15,7 @@ angular.module('mainApp')
     			return $http.get(endpoint() + 'video');
     		}
 
-            videoFactory.getvideo = function(videoId) {
+            videoFactory.getVideo = function(videoId) {
                 console.log("videoFactory.getvideo: " + videoId);
                 return $http.get(endpoint() + 'video/' + videoId );
             }

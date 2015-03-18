@@ -26,6 +26,10 @@ mainApp.config(['$routeProvider', function($routeProvider) {
 			templateUrl: 'partials/images/image-list.html',
 			controller: 'ImageListController'
 		}).
+		when('/video', {
+			templateUrl: 'partials/videos/video-list.html',
+			controller: 'VideoListController'
+		}).
 		when('/legal', {
 			templateUrl: 'partials/legal/legal-list.html',
 			controller: 'LegalListController'
@@ -41,6 +45,10 @@ mainApp.config(['$routeProvider', function($routeProvider) {
 		when('/image/:itemId', {
 			templateUrl: 'partials/images/image-details.html',
 			controller: 'ImageDetailsController'
+		}).
+		when('/video/:itemId', {
+			templateUrl: 'partials/videos/video-details.html',
+			controller: 'VideoDetailsController'
 		}).
 		when('/legal/:itemId', {
 			templateUrl: 'partials/legal/legal-details.html',
@@ -59,9 +67,13 @@ mainApp.config(['$routeProvider', function($routeProvider) {
 			templateUrl: 'partials/images/image-create.html',
 			controller: 'ImageCreateController'
 		}).
-		when('/new/legal', {
-			templateUrl: 'partials/legal/legal-create.html',
-			controller: 'LegalCreateController'
+		when('/new/image', {
+			templateUrl: 'partials/images/image-create.html',
+			controller: 'ImageCreateController'
+		}).
+		when('/new/video', {
+			templateUrl: 'partials/videos/video-create.html',
+			controller: 'VideoCreateController'
 		}).
 		otherwise({
 			redirectTo: '/'
