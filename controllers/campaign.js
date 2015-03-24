@@ -237,12 +237,6 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 		var tempId = $scope.campaigns.length + 1;
 		var currentId = tempId.toString();
 
-
-		//$scope.campaign.country = selectedCountry;
-		//$scope.campaign.image.label = selectedImage;
-		//$scope.campaign.video.video = "test video";
-
-
 		var campaignObj = { 
 							campaignId: currentId,		//$scope.campaigns.length,
   							title: $scope.campaign.title, 

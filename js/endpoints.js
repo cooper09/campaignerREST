@@ -1,11 +1,15 @@
 
-var serverMode = "localhost"
+var serverMode = "temp"
 
 function endpoint()
 {
 	if(serverMode === "localhost")
 	{
 		return "http://localhost:8081/"
+	}
+	else if(serverMode === "temp")
+	{
+		return "http://10.10.30.137:8081/"
 	}
 	else if(serverMode === "development")
 	{

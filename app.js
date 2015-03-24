@@ -1,3 +1,5 @@
+'use strict';
+
 var mainApp = angular.module('mainApp', [
   'ngRoute',
   'ngCookies',
@@ -62,10 +64,6 @@ mainApp.config(['$routeProvider', function($routeProvider) {
 		when('/new/country', {
 			templateUrl: 'partials/countries/country-create.html',
 			controller: 'CountryCreateController'
-		}).
-		when('/new/image', {
-			templateUrl: 'partials/images/image-create.html',
-			controller: 'ImageCreateController'
 		}).
 		when('/new/image', {
 			templateUrl: 'partials/images/image-create.html',
