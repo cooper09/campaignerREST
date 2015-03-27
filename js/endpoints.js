@@ -1,5 +1,5 @@
 
-var serverMode = "temp"
+var serverMode = "development"
 
 function endpoint()
 {
@@ -13,7 +13,7 @@ function endpoint()
 	}
 	else if(serverMode === "development")
 	{
-		return "http://default-environment-nm5p9qwapp.elasticbeanstalk.com/"
+		return "http://nodejs-campaigner.rhcloud.com/"
 	}
 	else if(serverMode === "production")
 	{
