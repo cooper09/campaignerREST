@@ -139,6 +139,39 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	$scope.saveItem = function(campaign)
 	{   
 		console.log("OK here's the campaign we're updating: ", campaign );
+		
+		
+		/*
+		you are overwiting the properties of the incoming campaign argument, not sure why but OK.
+		Since you are, there's no point in even bothering with it. Instead create a new object 
+		to send to update() like:
+		
+		var updates = {
+			campaignId: $scope.campaignId,
+			title:$scope.campaign.title,
+			description:$scope.campaign.description,
+			...
+		}
+		campaignFactory.update(updates, ...){
+		
+		then u are sure you have a clean object to send to your update call.
+		
+		an even better approach would require you to update the campaignFactory.update() method to expect
+		the first argument to be the campaignId. this will make incremental updates easier in the future.
+		
+		removing the campaignId from the updates object:
+		
+		var updates = {
+			title:$scope.campaign.title,
+			description:$scope.campaign.description,
+			...
+		}
+		
+		then calling updated method:
+		 
+		campaignFactory.update( $scope.campaignId, updates, ...){
+		
+		*/
 		var campId = $scope.campaignId;
 		campaign.campaignId = campId;
 		campaign.title = $scope.campaign.title;
@@ -148,6 +181,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 		campaign.country = $scope.campaign.country;
 		campaign.image = $scope.campaign.image;
 		campaign.video = $scope.campaign.video;
+		
 		
 		campaignFactory.update(campaign).success(function(data) {
 			console.log("updated campaign ",data);
