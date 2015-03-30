@@ -94,7 +94,8 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	var images = $scope.images;
 	
 	$scope.$on('campaign-loaded', function(event, args) {
-		alert("Campaign details - campaign loaded: "+  args);
+		console.log("Scope-ON - Campaign details - campaign loaded: " +   $scope.campaignId );
+
 	});//end scope on campaign
 	
 	
@@ -127,7 +128,8 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 
 	// delete campaign method
 	$scope.deleteItem = function(){
-		campaignFactory.delete($scope.campaign.campaignId).success(function(data) {
+		//alert("campaigner-deleteItem:  "+  $scope.campaignId );
+		campaignFactory.delete($scope.campaignId).success(function(data) {
 			console.log("deleted campaign ",data);
 			$location.path("/campaign");
 		});
@@ -136,41 +138,50 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	// save campaign method
 	$scope.saveItem = function(campaign)
 	{   
-		alert("Details SaveIteim - Time to update and our video: "+ campaign.video + " scope.video: " + $scope.video );
-		var campId = campaign.campaignId.toString();
+		console.log("OK here's the campaign we're updating: ", campaign );
+		var campId = $scope.campaignId;
 		campaign.campaignId = campId;
-		campaign.country = $scope.country;
-		campaign.image = $scope.image;
-		campaign.video = $scope.video;
-		campaignFactory.update(campaign)
-			.success(function(data) {
-				console.log("CampaignDetailsController.saveItem - update returned: ",data);
-				$location.path("/campaign");
-				}).error(function(data){
-				console.log("CampaignDetailsController.saveItem - failed to update: ", data );
-			});
+		campaign.title = $scope.campaign.title;
+		campaign.description = $scope.campaign.description;
+		campaign.launch = $scope.launchDate;
+		campaign.end = $scope.drawingDate;
+		campaign.country = $scope.campaign.country;
+		campaign.image = $scope.campaign.image;
+		campaign.video = $scope.campaign.video;
+		
+		campaignFactory.update(campaign).success(function(data) {
+			console.log("updated campaign ",data);
+			$location.path("/campaign");
+		});
 	}
 	// get campaign details
 	
 	console.log("Details Controller - saveItem get campaign: " + $routeParams.itemId ); 
 
-	campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
+campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
 		// get campaign from response
 		$scope.campaign = data;
+		$scope.campaignId = data[0].campaignId;
 		// set drawing and launch dates on scope
-		$scope.drawingDate = formatDateToString(new Date( $scope.campaign.end));
-		$scope.launchDate = formatDateToString(new Date( $scope.campaign.launch));
-		$scope.country =  $scope.campaign.country;
+		//$scope.drawingDate = formatDateToString(new Date( $scope.campaign.end));
+		//$scope.launchDate = formatDateToString(new Date( $scope.campaign.launch));
+		$scope.campaign.title = data[0].title;
+		$scope.campaign.description = data[0].description;
+		$scope.launchDate = data[0].launch;
+		$scope.drawingDate = data[0].end;
+		$scope.campaign.country =  data[0].country;
 
-		$scope.image = $scope.campaign.image;
-		$scope.video = $scope.campaign.video;
+		$scope.campaign.image  = data[0].image;
+		$scope.campaign.video = data[0].video;
+		$scope.campaign.clicks = data[0].clicks;
 
 	// now that we have our campaign set it to root scope 
 	//	dataFactory.setCampaign($scope.campaign);
-		$rootScope.$broadcast('campaign-loaded', $scope.campaign );
-	}).error (function(data) {
-		alert("GET CAMPAIGN - ERROR: "+  data );
-	}); 
+
+		$rootScope.$broadcast('campaign-loaded', $scope.campaign )
+			}).error (function(data) {
+				alert("GET CAMPAIGN - ERROR: "+  data );
+			}); 
 
 
 //cooper s - need a little standalone date formatter 
@@ -238,7 +249,7 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 		var currentId = tempId.toString();
 
 		var campaignObj = { 
-							campaignId: currentId,		//$scope.campaigns.length,
+							campaignId: tempId,		//$scope.campaigns.length,
   							title: $scope.campaign.title, 
   							description: $scope.campaign.description, 
   							launch: $scope.campaign.launch, 
@@ -254,8 +265,8 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 		.success(function(data) {
 			console.log("CampaignCreateController.created campaign details",data);
 			$location.path("/campaign");
-			
 		}); 
+		$location.path("/campaign");
 	}
 	
 	

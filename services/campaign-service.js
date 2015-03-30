@@ -24,19 +24,19 @@ angular.module('mainApp').factory('campaignFactory', ['$http', function($http) {
 	}
 	
 	campaignFactory.delete = function(campaignId) {
+		alert("delete campainid: " + campaignId );
 		return $http.delete(endpoint()+'campaign/' + campaignId );
 	}
 
 	campaignFactory.update =  function(campaign) {
 		// cooper s - collec all the current campaign data for the update
-		console.log("campaignFactory.update title: " , campaign.title );
-		var campaignId = campaign.campaignId.toString();
-	
-		return $http.post(endpoint()+'campaign/' + campaignId, campaign, {} );
+		console.log("campaignFactory.update title: " , campaign );
+		var campaignId = campaign.campaignId; //.toString();
+		return $http.put(endpoint()+'campaign/' + campaignId, campaign, {} );
 	}
 	
 	campaignFactory.getVideos =  function() {
-		return $http.get(endpoint()+'/video');
+		return $http.get(endpoint()+'video');
 	}
 
 	return campaignFactory;
