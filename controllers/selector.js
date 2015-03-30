@@ -37,9 +37,19 @@ selectControllers.controller('countryController', ['$rootScope','$scope', functi
     
 
     $scope.$on('campaign-loaded', function(event, args) {
-        alert("Country Selector TEST - AH HAHHHH!!!!!");
-       /* alert("CountrySelecor - Campaign loaded: " + args.country + " country scope: "+ $scope.country );
-        $scope.selectedOption = 3; */
+       // alert("Country Selector TEST - AH HAHHHH!!!!!";
+        var temp = new Array();
+        temp = args;
+        console.log("country args: "+  $scope.campaign.country );
+        alert("CountrySelecor - Campaign loaded: " + args.country + " country scope: "+ $scope.country );
+
+         for ( var i=0 ; i <  $scope.campaigns.length ; i++) {
+                if ($scope.campaigns[i].country == args.country ) {
+                    alert("Here's our country: " + $scope.campaigns[i].country);
+                    $scope.selectedOption = i;
+                }
+            }
+        //$scope.selectedOption = 1; 
     });//end scope on campaign
 
     //capture new selection   
@@ -49,13 +59,13 @@ selectControllers.controller('countryController', ['$rootScope','$scope', functi
                     
                     var country = $scope.selectedOption;
                     //set current campaigns tier3 msp to new selection
-                     for ( var i=0 ; i <  countryArr.length ; i++) {
+                  /*   for ( var i=0 ; i <  countryArr.length ; i++) {
                         if ( country ==  i) {
                             console.log("countryController - sending country: " + countryIds[i].country );
                             $scope.country  = countryIds[i].country;
                             $rootScope.country = $scope.country;
                         } //end if          
-                    }//end for loop..
+                    }//end for loop..  */
 
                 });//end watch selectedOption 
            

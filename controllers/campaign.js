@@ -94,7 +94,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	var images = $scope.images;
 	
 	$scope.$on('campaign-loaded', function(event, args) {
-		console.log("Scope-ON - Campaign details - campaign loaded: " +   $scope.campaignId );
+		console.log("Scope-ON - Campaign details - campaign loaded: " +   $scope.campaign.country );
 
 	});//end scope on campaign
 	
@@ -138,52 +138,23 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	// save campaign method
 	$scope.saveItem = function(campaign)
 	{   
-		console.log("OK here's the campaign we're updating: ", campaign );
-		
-		
-		/*
-		you are overwiting the properties of the incoming campaign argument, not sure why but OK.
-		Since you are, there's no point in even bothering with it. Instead create a new object 
-		to send to update() like:
-		
-		var updates = {
-			campaignId: $scope.campaignId,
-			title:$scope.campaign.title,
-			description:$scope.campaign.description,
-			...
-		}
-		campaignFactory.update(updates, ...){
-		
-		then u are sure you have a clean object to send to your update call.
-		
-		an even better approach would require you to update the campaignFactory.update() method to expect
-		the first argument to be the campaignId. this will make incremental updates easier in the future.
-		
-		removing the campaignId from the updates object:
-		
-		var updates = {
-			title:$scope.campaign.title,
-			description:$scope.campaign.description,
-			...
-		}
-		
-		then calling updated method:
-		 
-		campaignFactory.update( $scope.campaignId, updates, ...){
-		
-		*/
+		console.log("OK here's the campaign we're updating: ", campaign );		
+
 		var campId = $scope.campaignId;
-		campaign.campaignId = campId;
-		campaign.title = $scope.campaign.title;
-		campaign.description = $scope.campaign.description;
-		campaign.launch = $scope.launchDate;
-		campaign.end = $scope.drawingDate;
-		campaign.country = $scope.campaign.country;
-		campaign.image = $scope.campaign.image;
-		campaign.video = $scope.campaign.video;
-		
-		
-		campaignFactory.update(campaign).success(function(data) {
+
+		var updateObj = { 
+			campaignId: campId,
+			title: $scope.campaign.title,
+			description: $scope.campaign.description,
+			launch: $scope.launchDate,
+			end: $scope.drawingDate,
+			country: $scope.campaign.country,
+			image: $scope.campaign.image,
+			video: $scope.campaign.video,
+			clicks: 0
+		}
+
+		campaignFactory.update(updateObj).success(function(data) {
 			console.log("updated campaign ",data);
 			$location.path("/campaign");
 		});
