@@ -119,7 +119,7 @@ mainApp.controller('testController', ['$scope', '$rootScope', '$filter', 'campai
 		console.log("videos",data)
 		$scope.videos = data;
 		$rootScope.videos = $scope.videos;
-		$rootScope.$broadcast('videos-loaded');
+		$scope.$broadcast('videos-loaded');
 	});
 
 	legalFactory.get().success(function(data) {

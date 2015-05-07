@@ -93,11 +93,10 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	var countries = $scope.countries;
 	var images = $scope.images;
 	
-	$scope.$on('campaign-loaded', function(event, args) {
-		console.log("Scope-ON - Campaign details - campaign loaded: " +   $scope.campaign.country );
-
+/*	$scope.$on('campaign-loaded', function(event, args) {
+		alert("scope on campaign loaded: " + args + " event: ",  event );
 	});//end scope on campaign
-	
+	*/
 	
 	// launch date change handler
 	$scope.onLaunchDateChanged = function (dateString) {
@@ -183,7 +182,8 @@ campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
 	// now that we have our campaign set it to root scope 
 	//	dataFactory.setCampaign($scope.campaign);
 
-		$rootScope.$broadcast('campaign-loaded', $scope.campaign )
+		$rootScope.$broadcast('campaign-loaded', $rootScope.campaign )
+			console.log("Broadcasting NOW!!!",  $scope.campaign);
 			}).error (function(data) {
 				alert("GET CAMPAIGN - ERROR: "+  data );
 			}); 
