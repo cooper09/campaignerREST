@@ -70,9 +70,12 @@
 			View goes here...
 		</div><!-- end view load -->
 <p></p>
-<!-- button controller -->
+<!-- button controller 
 	<div ng-controller="testController" ng-init="init()">
 		<button ng-click="startScanner()">Click Me 2</button>
+	</div><!--end testController -->
+	<div ng-controller="testController" ng-init="startScanner()">
+		<button ng-click="init()">Load Data</button>
 	</div><!--end testController -->
 </body>
 </html>
