@@ -122,6 +122,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	}
 	
 	$scope.changeVideo = function (selected) {
+		console.log("CampaignDetailsController - changeVideo: " + $scope.videos[selected].location );
 		$scope.video = $scope.videos[selected].location;
 	}
 
@@ -137,7 +138,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	$scope.saveItem = function(campaign)
 	{   
 		console.log("OK here's the campaign we're updating: ", campaign );		
-
+		alert("saveItem saving video: " + $scope.video);
 		var campId = $scope.campaignId;
 
 		var updateObj = { 
@@ -148,7 +149,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 			end: $scope.drawingDate,
 			country: $scope.campaign.country,
 			image: $scope.campaign.image,
-			video: $scope.campaign.video,
+			video: $scope.video,
 			clicks: 0
 		}
 
