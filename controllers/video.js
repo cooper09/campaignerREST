@@ -33,7 +33,7 @@ videoControllers.controller('VideoListController', ['$scope', 'videoFactory','$s
 
 	$scope.newVideo = function()
 	{
-		alert("coming soon");
+		alert("Videso - coming soon");
 	}
 
 	console.log("Current list of videos: " + $scope.videos );

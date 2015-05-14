@@ -122,13 +122,11 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	}
 	
 	$scope.changeVideo = function (selected) {
-		alert("Video changed at least...");
 		$scope.video = $scope.videos[selected].location;
 	}
 
 	// delete campaign method
 	$scope.deleteItem = function(){
-		//alert("campaigner-deleteItem:  "+  $scope.campaignId );
 		campaignFactory.delete($scope.campaignId).success(function(data) {
 			console.log("deleted campaign ",data);
 			$location.path("/campaign");

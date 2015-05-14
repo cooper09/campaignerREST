@@ -41,11 +41,10 @@ selectControllers.controller('countryController', ['$rootScope','$scope', functi
         var temp = new Array();
         temp = args;
         console.log("country args: "+  $scope.campaign.country );
-        alert("CountrySelecor - Campaign loaded: " + args.country + " country scope: "+ $scope.country );
+       // alert("CountrySelecor - Campaign loaded: " + args.country + " country scope: "+ $scope.country );
 
          for ( var i=0 ; i <  $scope.campaigns.length ; i++) {
                 if ($scope.campaigns[i].country == args.country ) {
-                    alert("Here's our country: " + $scope.campaigns[i].country);
                     $scope.selectedOption = i;
                 }
             }
