@@ -93,8 +93,6 @@ countryControllers.controller('CountryDetailsController', ['$rootScope','$scope'
 
 	countryFactory.getCountry( $routeParams.itemId ).success(function(data) {
 
-		alert("retrieved country data: " + data.country );
-
 		$scope.country = data.country;
 		$scope.itemId =  $scope.countryId;
 

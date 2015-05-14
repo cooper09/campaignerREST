@@ -92,41 +92,40 @@ mainApp.controller('testController', ['$scope', '$rootScope', '$filter', 'campai
 		//get all scope data for campaingns, countries, images and legal docs
 
 
-	campaignFactory.get().success(function(data) {
-		console.log("campfactory list data: " , data);
-		$scope.campaigns = data;
-		$rootScope.campaigns = $scope.campaigns;
-		campArr = $scope.campaigns;
-		$scope.currentCampaignId = campArr.length;
-		console.log("App.js - current campaign id: ", campArr );
-	}); 
+		campaignFactory.get().success(function(data) {
+			console.log("Got campaign data: " , data);
+			$scope.campaigns = data;
+			$rootScope.campaigns = $scope.campaigns;
+			campArr = $scope.campaigns;
+			$scope.currentCampaignId = campArr.length;
+		}); 
 
-	countryFactory.get().success(function(data) {
-		console.log("My list of countries: " , data);
-		$scope.countries = data;
-		$rootScope.countries = $scope.countries;
+		countryFactory.get().success(function(data) {
+			console.log("Got country data: " , data);
+			$scope.countries = data;
+			$rootScope.countries = $scope.countries;
 
-	}); 
+		}); 
 
-	imageFactory.get().success(function(data) {
-		console.log(" current LIST of images: ", data );
-		$scope.images = data;
-		$rootScope.images = $scope.images;
-	});
+		imageFactory.get().success(function(data) {
+			console.log("Got image data: ", data );
+			$scope.images = data;
+			$rootScope.images = $scope.images;
+		});
 
-	//GET add'l data here....
-	campaignFactory.getVideos().success(function(data) {
-		console.log("videos",data)
-		$scope.videos = data;
-		$rootScope.videos = $scope.videos;
-		$scope.$broadcast('videos-loaded');
-	});
+		//GET add'l data here....
+		campaignFactory.getVideos().success(function(data) {
+			console.log("Got video data:",data)
+			$scope.videos = data;
+			$rootScope.videos = $scope.videos;
+			$rootScope.$broadcast('videos-loaded');
+		});
 
-	legalFactory.get().success(function(data) {
-		console.log(" current LIST of legal docs: ", data );
-		$scope.legals = data;
-		$rootScope.legals = $scope.legals;
-	});
+		legalFactory.get().success(function(data) {
+			console.log("Got legal data: ", data );
+			$scope.legals = data;
+			$rootScope.legals = $scope.legals;
+		});
 
 	}
 
