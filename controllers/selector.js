@@ -118,7 +118,7 @@ selectControllers.controller('imageController', ['$rootScope','$scope', function
 
 }]);// End image Controller
 
-//campaign image selector
+//campaign video selector
 selectControllers.controller('videoController', ['$rootScope','$scope', function($rootScope, $scope) {
     $scope.selectedOption = null;
     $scope.options = [];
@@ -127,12 +127,11 @@ selectControllers.controller('videoController', ['$rootScope','$scope', function
     var videoArr = new Array();
     var videoIds = new Array();
 
-    console.log('videoController- lets checkout our videos data: ', $scope.videos );
+    alert('videoController- lets checkout our videos data: '+ $scope.campaign.video  );
     //create an array of option objects { name, value } pairs 
 
     for ( var i=0 ; i <  $scope.videos.length ; i++) {
         videoArr.push({label:$scope.videos[i].label, location:$scope.videos[i].location , value: i });
-    //    countryIds.push({countryId: $scope.countries[i].countryId, country: $scope.countries[i].data.country });
     }
     var options = videoArr;
     // make sure the selector get the final options
@@ -140,8 +139,9 @@ selectControllers.controller('videoController', ['$rootScope','$scope', function
         $scope.selectedOption = 0; 
 //check to see if we have our campaign
      for ( var i=0 ; i <  $scope.videos.length ; i++) {
-        console.log("VideoSelector doing its thing: " + $scope.video );
-        if (videoArr[i].label == $scope.video ) {
+        
+        if (videoArr[i].location == $scope.campaign.video ) {
+            console.log("Set video selector to: " + $scope.campaign.video );
             $scope.selectedOption = i;
         }
     }//end for loop
@@ -160,5 +160,11 @@ selectControllers.controller('videoController', ['$rootScope','$scope', function
                         } //end if          
                     }//end for loop..
 
-                });//end watch selectedOption 
+    });//end watch selectedOption 
+
+   $rootScope.$on('campaign-loaded', function(event, args) {
+       //alert("video selector -- current video from database: " + $rootScope.campaign );
+    });//end scope on campaign
+
+
 }]);// End Video Controller

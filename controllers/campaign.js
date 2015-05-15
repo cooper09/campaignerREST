@@ -182,7 +182,7 @@ campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
 	//	dataFactory.setCampaign($scope.campaign);
 
 		$rootScope.$broadcast('campaign-loaded', $rootScope.campaign )
-			console.log("Broadcasting NOW!!!",  $scope.campaign);
+			alert("Broadcasting NOW!!!",  $rootScope.campaign);
 			}).error (function(data) {
 				alert("GET CAMPAIGN - ERROR: "+  data );
 			}); 
