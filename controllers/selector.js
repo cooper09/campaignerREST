@@ -14,7 +14,7 @@ selectControllers.controller('countryController', ['$rootScope','$scope', functi
     var countryArr = new Array();
     var countryIds = new Array();
 
-    //alert('countrySelector- lets checkout our countries data: '+ $scope.campaign.country );
+   // alert('countrySelector- lets checkout our countries data: '+ $scope.campaign.country );
     //create an array of option objects { name, value } pairs 
 
     for ( var i=0 ; i <  $scope.countries.length ; i++) {
@@ -30,7 +30,7 @@ selectControllers.controller('countryController', ['$rootScope','$scope', functi
 //check to see if we have our campaign
 
     for ( var i=0 ; i <  $scope.countries.length ; i++) {
-        if (countryArr[i].country == $scope.country ) {
+        if (countryArr[i].country == $scope.campaign.country ) {
             $scope.selectedOption = i;
         }
     }
@@ -58,13 +58,13 @@ selectControllers.controller('countryController', ['$rootScope','$scope', functi
                     
                     var country = $scope.selectedOption;
                     //set current campaigns tier3 msp to new selection
-                  /*   for ( var i=0 ; i <  countryArr.length ; i++) {
+                    for ( var i=0 ; i <  countryArr.length ; i++) {
                         if ( country ==  i) {
                             console.log("countryController - sending country: " + countryIds[i].country );
                             $scope.country  = countryIds[i].country;
                             $rootScope.country = $scope.country;
                         } //end if          
-                    }//end for loop..  */
+                    }//end for loop.. 
 
                 });//end watch selectedOption 
            
@@ -80,7 +80,7 @@ selectControllers.controller('imageController', ['$rootScope','$scope', function
     var imageArr = new Array();
     var imageIds = new Array();
 
-    console.log('imageController- lets checkout our image data: ', $scope.images );
+    console.log('imageController- lets checkout our image data: ', $scope.campaign.image );
     //create an array of option objects { name, value } pairs 
 
     for ( var i=0 ; i <  $scope.images.length ; i++) {
@@ -95,8 +95,8 @@ selectControllers.controller('imageController', ['$rootScope','$scope', function
         console.log("Image selected option: ", $scope.options );
 //check to see if we have our campaign
     for ( var i=0 ; i <  $scope.images.length ; i++) {
-        console.log("ImageSelector doing its thing: " + $scope.image );
-        if (imageArr[i].label == $scope.image ) {
+        console.log("ImageSelector doing its thing: " + $scope.campaign.image );
+        if (imageArr[i].label == $scope.campaign.image ) {
             $scope.selectedOption = i;
         }
     }
@@ -111,10 +111,11 @@ selectControllers.controller('imageController', ['$rootScope','$scope', function
                         if ( image ==  i) {
                             $scope.image  =  imageArr[i].label;
                             $rootScope.image = imageArr[i].location;
+                            alert("Campaign image now set to: " + $scope.image + " sans " + $scope.campaign.image );
                         } //end if          
                     }//end for loop..
 
-                });//end watch selectedOption 
+    });//end watch selectedOption 
 
 }]);// End image Controller
 
@@ -127,7 +128,7 @@ selectControllers.controller('videoController', ['$rootScope','$scope', function
     var videoArr = new Array();
     var videoIds = new Array();
 
-    alert('videoController- lets checkout our videos data: '+ $scope.campaign.video  );
+    console.log('videoController- lets checkout our videos data: '+ $scope.campaign.video  );
     //create an array of option objects { name, value } pairs 
 
     for ( var i=0 ; i <  $scope.videos.length ; i++) {
@@ -163,7 +164,7 @@ selectControllers.controller('videoController', ['$rootScope','$scope', function
     });//end watch selectedOption 
 
    $rootScope.$on('campaign-loaded', function(event, args) {
-       //alert("video selector -- current video from database: " + $rootScope.campaign );
+      alert("video selector -- current video from database: " + $scope.campaign );
     });//end scope on campaign
 
 

@@ -136,8 +136,8 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	// save campaign method
 	$scope.saveItem = function(campaign)
 	{   
-		console.log("OK here's the campaign we're updating: ", campaign );		
-		alert("saveItem saving video: " + $scope.video);
+		console.log("OK here's the campaign we're updating: ", $scope.country );		
+		alert("saveItem saving image: " + $scope.image);
 		var campId = $scope.campaignId;
 
 		var updateObj = { 
@@ -146,8 +146,8 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 			description: $scope.campaign.description,
 			launch: $scope.launchDate,
 			end: $scope.drawingDate,
-			country: $scope.campaign.country,
-			image: $scope.campaign.image,
+			country: $scope.country,
+			image: $scope.image,
 			video: $scope.video,
 			clicks: 0
 		}
@@ -181,8 +181,8 @@ campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
 	// now that we have our campaign set it to root scope 
 	//	dataFactory.setCampaign($scope.campaign);
 
-		$rootScope.$broadcast('campaign-loaded', $rootScope.campaign )
-			alert("Broadcasting NOW!!!",  $rootScope.campaign);
+		$scope.$broadcast('campaign-loaded', $scope.campaign )
+			console.log("Broadcasting NOW!!!",  $scope.campaign);
 			}).error (function(data) {
 				alert("GET CAMPAIGN - ERROR: "+  data );
 			}); 
