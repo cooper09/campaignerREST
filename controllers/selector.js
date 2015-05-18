@@ -160,5 +160,14 @@ selectControllers.controller('videoController', ['$rootScope','$scope', function
                         } //end if          
                     }//end for loop..
 
-                });//end watch selectedOption 
+        });//end watch selectedOption 
+
+
+    $scope.$on('campaign-loaded', function(event, args) {
+       /*/ alert("Country Selector TEST - AH HAHHHH!!!!!"; */
+     
+        alert("Current video campaign: " + $scope.video ); 
+
+    });//end scope on campaign
+
 }]);// End Video Controller

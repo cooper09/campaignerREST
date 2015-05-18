@@ -163,6 +163,8 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	console.log("Details Controller - saveItem get campaign: " + $routeParams.itemId ); 
 
 campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
+
+	alert("getCampaign: " + data[0].video );
 		// get campaign from response
 		$scope.campaign = data;
 		$scope.campaignId = data[0].campaignId;
