@@ -95,8 +95,8 @@ selectControllers.controller('imageController', ['$rootScope','$scope', function
         console.log("Image selected option: ", $scope.options );
 //check to see if we have our campaign
     for ( var i=0 ; i <  $scope.images.length ; i++) {
-        console.log("ImageSelector doing its thing: " + $scope.campaign.image );
-        if (imageArr[i].label == $scope.campaign.image ) {
+        console.log("ImageSelector doing its thing: " + $scope.campaign.image + " current image array label: " + imageArr[i].label );
+        if (imageArr[i].location == $scope.campaign.image ) {
             $scope.selectedOption = i;
         }
     }
@@ -111,7 +111,7 @@ selectControllers.controller('imageController', ['$rootScope','$scope', function
                         if ( image ==  i) {
                             $scope.image  =  imageArr[i].label;
                             $rootScope.image = imageArr[i].location;
-                            alert("Campaign image now set to: " + $scope.image + " sans " + $scope.campaign.image );
+                            //alert("Campaign image now set to: " + $scope.image + " sans " + $scope.campaign.image );
                         } //end if          
                     }//end for loop..
 

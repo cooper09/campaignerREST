@@ -137,7 +137,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	$scope.saveItem = function(campaign)
 	{   
 		console.log("OK here's the campaign we're updating: ", $scope.country );		
-		alert("saveItem saving image: " + $scope.image);
+		//alert("saveItem saving image: " + $scope.image);
 		var campId = $scope.campaignId;
 
 		var updateObj = { 
