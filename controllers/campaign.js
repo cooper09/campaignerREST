@@ -254,7 +254,6 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 
 		today = mm+'/'+dd+'/'+yyyy;
 		thirtydays = mmm+'/'+dd+'/'+yyyy;
-		alert("30 days from now: " + thirtydays );
 
 	$scope.launchDate = today;
 	$scope.endDate = thirtydays;
@@ -298,7 +297,8 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 		.success(function(data) {
 			console.log("CampaignCreateController.created campaign details",data);
 			$location.path("/campaign");
-		});  
+		});
+		$location.path("/campaign");  
 	}
 	
 	

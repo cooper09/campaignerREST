@@ -7,12 +7,22 @@ var selectControllers = angular.module('selectControllers', []);
 //
 
 selectControllers.controller('countryController', ['$rootScope','$scope', function($rootScope, $scope) {
+   
+    //alert("Country selector to start: " + $scope.countries );
+    //alert("Root Scope Campaign Country: " + $rootScope.campaign );
+    $scope.campaign.country = $scope.countries[0].country;
+
     $scope.selectedOption = null;
     $scope.options = [];
     $scope.logentries = [];
 
+    //default country for loading
+    //$scope.campaign.country = 'USA';
+
     var countryArr = new Array();
     var countryIds = new Array();
+
+    //countryArr[0].country = 'USA';
 
    // alert('countrySelector- lets checkout our countries data: '+ $scope.campaign.country );
     //create an array of option objects { name, value } pairs 
@@ -40,7 +50,7 @@ selectControllers.controller('countryController', ['$rootScope','$scope', functi
        // alert("Country Selector TEST - AH HAHHHH!!!!!";
         var temp = new Array();
         temp = args;
-        console.log("country args: "+  $scope.campaign.country );
+        console.log("Campagin is loaded and the country iss: "+  $scope.campaign.country );
        // alert("CountrySelecor - Campaign loaded: " + args.country + " country scope: "+ $scope.country );
 
          for ( var i=0 ; i <  $scope.campaigns.length ; i++) {
