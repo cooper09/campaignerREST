@@ -171,7 +171,7 @@ campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
 		$scope.campaign.title = data[0].title;
 		$scope.campaign.description = data[0].description;
 		$scope.launchDate = data[0].launch;
-		$scope.drawingDate = data[0].end;
+		$scope.endDate = data[0].end;
 		$scope.campaign.country =  data[0].country;
 
 		$scope.campaign.image  = data[0].image;
@@ -225,12 +225,39 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 	// create empty campaign
 	$scope.campaign = new Campaign();
 
-	// format text based display dates
+	/* format text based display dates
 	var displayLaunchDate = formatDate($scope.campaign.launch);
 	var displayDrawingDate = formatDate($scope.campaign.drawing);
 
 	$scope.campaign.launch = displayLaunchDate;
-	$scope.campaign.drawing = displayDrawingDate;
+	$scope.campaign.end = displayDrawingDate; */
+
+	//Lets start with default dates
+	var today = new Date();
+	var thirtydays = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var mmm = today.getMonth()+2; //January is 0!
+	var yyyy = today.getFullYear();
+
+		if(dd<10) {
+			    dd='0'+dd;
+			} 
+
+		if(mm<10) {
+			    mm='0'+mm;
+			} 
+		if(mmm<10) {
+			    mmm='0'+mmm;
+			} 
+
+
+		today = mm+'/'+dd+'/'+yyyy;
+		thirtydays = mmm+'/'+dd+'/'+yyyy;
+		alert("30 days from now: " + thirtydays );
+
+	$scope.launchDate = today;
+	$scope.endDate = thirtydays;
 
 	// save method
 	$scope.saveItem = function(){
@@ -241,9 +268,11 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 		$scope.campaign.drawing = utcDate2.getTime()/1000; */
  
 		console.log("New Campaign: " , $scope.campaign );
-		console.log("New Campaign country: " , $rootScope.country );
-		console.log("New Campaign image: " , $rootScope.image );
-		console.log("New Campaign video: " , $rootScope.video );
+		console.log("New Campaign title: " , $scope.campaign.title );
+		console.log("New Campaign description: " , $scope.campaign.description );
+		console.log("New Campaign country: " , $scope.country );
+		console.log("New Campaign image: " , $scope.image );
+		console.log("New Campaign video: " , $scope.video );
 
 		if ($scope.campaign.active == false ) {
 			$scope.campaign.active = 0;
@@ -256,11 +285,11 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 							campaignId: tempId,		//$scope.campaigns.length,
   							title: $scope.campaign.title, 
   							description: $scope.campaign.description, 
-  							launch: $scope.campaign.launch, 
-  							end: $scope.campaign.drawing,
-  							country: $rootScope.country,
-  							image: $rootScope.image,
-  							video: $rootScope.video,
+  							launch: $scope.launchDate, 
+  							end: $scope.endDate,
+  							country: $scope.country,
+  							image: $scope.image,
+  							video: $scope.video,
   							clicks: 0
   							}
 
@@ -269,8 +298,7 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 		.success(function(data) {
 			console.log("CampaignCreateController.created campaign details",data);
 			$location.path("/campaign");
-		}); 
-		$location.path("/campaign");
+		});  
 	}
 	
 	

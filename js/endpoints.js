@@ -1,5 +1,5 @@
 
-var serverMode = "development"
+var serverMode = "localhost"
 
 function endpoint()
 {

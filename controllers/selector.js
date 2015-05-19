@@ -95,7 +95,7 @@ selectControllers.controller('imageController', ['$rootScope','$scope', function
         console.log("Image selected option: ", $scope.options );
 //check to see if we have our campaign
     for ( var i=0 ; i <  $scope.images.length ; i++) {
-        console.log("ImageSelector doing its thing: " + $scope.campaign.image + " current image array label: " + imageArr[i].label );
+        //console.log("ImageSelector doing its thing: " + $scope.campaign.image + " current image array label: " + imageArr[i].label );
         if (imageArr[i].location == $scope.campaign.image ) {
             $scope.selectedOption = i;
         }
@@ -103,7 +103,7 @@ selectControllers.controller('imageController', ['$rootScope','$scope', function
     
   $scope.$watch('selectedOption', function(newValue, oldValue) {
     // handle selection change ...
-        console.log("imagecontroller - selection: " + $scope.selectedOption);
+        //console.log("imagecontroller - selection: " + $scope.selectedOption);
                     
         var image = $scope.selectedOption;
                     //set current campaigns tier3 msp to new selection
