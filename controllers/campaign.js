@@ -93,10 +93,13 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	var countries = $scope.countries;
 	var images = $scope.images;
 	
-/*	$scope.$on('campaign-loaded', function(event, args) {
-		alert("scope on campaign loaded: " + args + " event: ",  event );
+	$scope.$on('campaign-loaded', function(event, args) {
+		//alert("CampaignDetailsController - scope on campaign loaded: " ,   args + " event: "+  $scope.campaign );
+		console.log("CampaignDetailsController - current scope campaign loaded: " , args.country );
+		$scope.country = args.country;
+		$scope.image = args.image;
+		$scope.video = args.video;
 	});//end scope on campaign
-	*/
 	
 	// launch date change handler
 	$scope.onLaunchDateChanged = function (dateString) {
