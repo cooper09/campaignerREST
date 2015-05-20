@@ -17,6 +17,8 @@ selectControllers.controller('countryController', ['$rootScope','$scope', functi
 
     //create an array of option objects { name, value } pairs 
 
+    console.log("Country Selector: " + $rootScope.country );
+
     for ( var i=0 ; i <  $scope.countries.length ; i++) {
        countryArr.push({country: $scope.countries[i].country, value: i });
        countryIds.push({countryId: $scope.countries[i].countryId, country: $scope.countries[i].country });
