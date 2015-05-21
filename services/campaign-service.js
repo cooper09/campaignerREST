@@ -15,7 +15,7 @@ angular.module('mainApp').factory('campaignFactory', ['$http', '$rootScope', fun
 	}
 
 	campaignFactory.getCampaign = function(campaignId) {
-		console.log('campaignFacgtory.getCampaign: ' + campaignId );
+		console.log('campaignFacgtory.getCampaign: ' + campaignId + " Make sure to set $rootScope.campaignID!"  );
 		$rootScope.campaignId = campaignId;
 		return $http.get(endpoint()+'campaign/' + campaignId );
 	}
