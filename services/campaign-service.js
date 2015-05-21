@@ -5,7 +5,7 @@
 */
 
 
-angular.module('mainApp').factory('campaignFactory', ['$http', function($http) {
+angular.module('mainApp').factory('campaignFactory', ['$http', '$rootScope', function($http, $rootScope ) {
 	var campaignFactory = {};
 
 	campaignFactory.get = function() {
@@ -15,7 +15,8 @@ angular.module('mainApp').factory('campaignFactory', ['$http', function($http) {
 	}
 
 	campaignFactory.getCampaign = function(campaignId) {
-		console.log('getCampaign: ' + campaignId );
+		console.log('campaignFacgtory.getCampaign: ' + campaignId );
+		$rootScope.campaignId = campaignId;
 		return $http.get(endpoint()+'campaign/' + campaignId );
 	}
 	

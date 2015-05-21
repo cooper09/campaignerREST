@@ -95,8 +95,8 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	
 	$scope.$on('campaign-loaded', function(event, args) {
 		//alert("CampaignDetailsController - scope on campaign loaded: " ,   args + " event: "+  $scope.campaign );
-		console.log("CampaignDetailsController - current scope campaign loaded: " , args.country );
-		$rootScope.country = args.country;
+		console.log("CampaignDetailsController - current scope campaign loaded: " ,  $scope.campaignId );
+		$scope.country = args.country;
 		$scope.image = args.image;
 		$scope.video = args.video;
 	});//end scope on campaign
