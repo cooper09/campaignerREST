@@ -7,8 +7,9 @@ var selectControllers = angular.module('selectControllers', []);
 //
 
 
-    //cooper s - rootScope should always have the value of the currently loaded campaign since that 
-    // is the only data set that is updated  for each routed item.  We can think text and selector items for 
+    //cooper s - rootScope.campaignId be set whevever the campaign factory loads a new campaign. 
+    //  we then use this to determine where to find the country, image and video of each campaign 
+    //  and update the appropriate selector items for 
     // display.
     //
     //  may 2015
