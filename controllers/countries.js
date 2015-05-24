@@ -20,6 +20,7 @@ var Country = function()
 {
 	this.countryId = "0";
 	this.name = "USA";
+	this.flag = "http://sonyainc.net/flags/usa-flag.jpg";
 }
 
 /*
@@ -69,7 +70,8 @@ countryControllers.controller('CountryDetailsController', ['$rootScope','$scope'
 
 	$scope.sectionName = "Country";
 	$scope.saveButtonLabel = "UPDATE";
-	$scope.hasDeleteButton = true;
+	$scope.hasSaveButton = false;
+	$scope.hasDeleteButton = false;
 
 	// delete country method
 	$scope.deleteItem = function(){
@@ -104,17 +106,6 @@ countryControllers.controller('CountryDetailsController', ['$rootScope','$scope'
 		alert("GET COUNTRY - ERROR: "+  data );
 	}); ; 
 	
-/*	countryFactory.getImages( $routeParams.itemId ).success(function(data) {
-		console.log("countryDetailsController.saveItem - images",data.images)
-		$scope.images = data.images;
-		
-	});
-	
-	// get countrys
-	countryFactory.getLegal( $routeParams.itemId ).success(function(data) {
-		console.log("countryDetailsController.saveItem - legal: ",data.legals.data)
-		$scope.legalData = data.legals.data;
-	});  */
 }]);
 
 /*
@@ -131,17 +122,21 @@ countryControllers.controller('CountryCreateController', ['$scope', '$http','$lo
 	$scope.saveButtonLabel = "SAVE";
 	$scope.hasDeleteButton = false;
 	// create empty country
-	$scope.country = new Country();
-	
+	var countryObj = new Country();
+
+	countryObj.countryId  = $scope.countries.length + 1;
+	countryObj.name = $scope.country;
+
+	// Have to come up with specs on creating a new country. Right now lets just stick with 5 to beta test
 	// save method
 	$scope.saveItem = function(){
-		console.log("MSCreateController.saveItem - creating: ", $scope.city);
-		$http.post(endpoint()+'country/', $scope.country).
+		alert("FEATURE Coming Soon! ");
+	/*	$http.post(endpoint()+'country/', countryObj).
 		success(function(data) {
 			console.log("MSCreateController.saveItem - created country details",data);
 			$location.path("/country");
 			
-		});
+		});  */
 	}
 	
 }]);
