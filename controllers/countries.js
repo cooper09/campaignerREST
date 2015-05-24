@@ -93,11 +93,13 @@ countryControllers.controller('CountryDetailsController', ['$rootScope','$scope'
 
 	countryFactory.getCountry( $routeParams.itemId ).success(function(data) {
 
+		console.log("country.flag: " + data.flag );
 		$scope.country = data.country;
+		$scope.flag  = data.flag;
 		$scope.itemId =  $scope.countryId;
 
 		// now that we have our country set it to root scope 
-		console.log("country.saveItem: " , $rootScope.country );
+		
 	}).error (function(data) {
 		alert("GET COUNTRY - ERROR: "+  data );
 	}); ; 

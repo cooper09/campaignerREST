@@ -4,35 +4,12 @@
 		Country: <input type="text" ng-model="country" /><br />
 		
 		<p></p>
-	<!--	<label>Image:</label> 
-			<span ng-controller="imageController">
-				     <select 
-				      ng-model="selectedOption" 
-				      ng-options="option.value as option.name for option in options"
-				      ng-change="changeMe(selectedOption)"
-				      id="imageSelector"
-				      >
-				    </select>
-				  </span>
-			<p></p>
-
-		<label>Legal:</label> 
-			<span ng-controller="legalController">
-				     <select 
-				      ng-model="selectedOption" 
-				      ng-options="option.value as option.name for option in options"
-				      ng-change="changeMe(selectedOption)"
-				      id="legalSelector"
-				      >
-				    </select>
-				  </span>
-			<p></p> -->
 
 		<p ng-model="country.imageId">
-		<img ng-model="country.imageId" ng-src="http://sonyainc.net/images/sonya-E.jpg"></img><br/>
+		<img ng-model="flag" ng-src="{{flag}}"></img><br/>
 		</p>`
-		<button ng-click="saveItem(country)">{{saveButtonLabel}}</button>
-		<button ng-click="deleteCountry(country)" ng-show="{{hasDeleteButton}}">DELETE</button>
+	<!--	<button ng-click="saveItem(country)">{{saveButtonLabel}}</button>
+		<button ng-click="deleteCountry(country)" ng-show="{{hasDeleteButton}}">DELETE</button> -->
 	</form>
 </div>
 <p>Data Preview:</p>

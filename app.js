@@ -163,18 +163,6 @@ mainApp.controller('testController', ['$scope', '$rootScope', '$filter', 'campai
 
 }]);//end test controller 
 
-mainApp.controller('dateController', ['$scope', function($scope) {
-       $scope.value = new Date(2014, 9, 22);
-       console.log("set default date: " + $scope.datevalue );
-
-        $scope.$watch('defaultvalue', function () { 
-        	$scope.value = new Date(2014, 9, 22);
-        	console.log('Date string change: '+ $scope.datevalue );
-
-    	});  
-
-     }]);//end date controller 
-
 mainApp.controller('dataController', ['$scope','$http', function($scope, $http ) {
     console.log("lets get some data:  " + endpoint());
 
