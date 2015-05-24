@@ -94,10 +94,12 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	var images = $scope.images;
 	
 	$scope.$on('campaign-loaded', function(event, args) {
-		console.log("Scope-ON - Campaign details - campaign loaded: " +   $scope.campaign.country );
-
+		//alert("CampaignDetailsController - scope on campaign loaded: " ,   args + " event: "+  $scope.campaign );
+		console.log("CampaignDetailsController - current scope campaign loaded: " ,  $scope.campaignId );
+		$scope.country = args.country;
+		$scope.image = args.image;
+		$scope.video = args.video;
 	});//end scope on campaign
-	
 	
 	// launch date change handler
 	$scope.onLaunchDateChanged = function (dateString) {
@@ -137,8 +139,8 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	// save campaign method
 	$scope.saveItem = function(campaign)
 	{   
-		console.log("OK here's the campaign we're updating: ", campaign );		
-		alert("saveItem saving video: " + $scope.video);
+		console.log("OK here's the campaign we're updating: ", $scope.country );		
+		//alert("saveItem saving image: " + $scope.image);
 		var campId = $scope.campaignId;
 
 		var updateObj = { 
@@ -147,8 +149,8 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 			description: $scope.campaign.description,
 			launch: $scope.launchDate,
 			end: $scope.drawingDate,
-			country: $scope.campaign.country,
-			image: $scope.campaign.image,
+			country: $scope.country,
+			image: $scope.image,
 			video: $scope.video,
 			clicks: 0
 		}
@@ -163,8 +165,6 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	console.log("Details Controller - saveItem get campaign: " + $routeParams.itemId ); 
 
 campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
-
-	alert("getCampaign: " + data[0].video );
 		// get campaign from response
 		$scope.campaign = data;
 		$scope.campaignId = data[0].campaignId;
@@ -174,7 +174,7 @@ campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
 		$scope.campaign.title = data[0].title;
 		$scope.campaign.description = data[0].description;
 		$scope.launchDate = data[0].launch;
-		$scope.drawingDate = data[0].end;
+		$scope.endDate = data[0].end;
 		$scope.campaign.country =  data[0].country;
 
 		$scope.campaign.image  = data[0].image;
@@ -184,7 +184,8 @@ campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
 	// now that we have our campaign set it to root scope 
 	//	dataFactory.setCampaign($scope.campaign);
 
-		$rootScope.$broadcast('campaign-loaded', $scope.campaign )
+		$scope.$broadcast('campaign-loaded', $scope.campaign )
+			console.log("Broadcasting NOW!!!",  $scope.campaign);
 			}).error (function(data) {
 				alert("GET CAMPAIGN - ERROR: "+  data );
 			}); 
@@ -227,12 +228,38 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 	// create empty campaign
 	$scope.campaign = new Campaign();
 
-	// format text based display dates
+	/* format text based display dates
 	var displayLaunchDate = formatDate($scope.campaign.launch);
 	var displayDrawingDate = formatDate($scope.campaign.drawing);
 
 	$scope.campaign.launch = displayLaunchDate;
-	$scope.campaign.drawing = displayDrawingDate;
+	$scope.campaign.end = displayDrawingDate; */
+
+	//Lets start with default dates
+	var today = new Date();
+	var thirtydays = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var mmm = today.getMonth()+2; //January is 0!
+	var yyyy = today.getFullYear();
+
+		if(dd<10) {
+			    dd='0'+dd;
+			} 
+
+		if(mm<10) {
+			    mm='0'+mm;
+			} 
+		if(mmm<10) {
+			    mmm='0'+mmm;
+			} 
+
+
+		today = mm+'/'+dd+'/'+yyyy;
+		thirtydays = mmm+'/'+dd+'/'+yyyy;
+
+	$scope.launchDate = today;
+	$scope.endDate = thirtydays;
 
 	// save method
 	$scope.saveItem = function(){
@@ -243,9 +270,11 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 		$scope.campaign.drawing = utcDate2.getTime()/1000; */
  
 		console.log("New Campaign: " , $scope.campaign );
-		console.log("New Campaign country: " , $rootScope.country );
-		console.log("New Campaign image: " , $rootScope.image );
-		console.log("New Campaign video: " , $rootScope.video );
+		console.log("New Campaign title: " , $scope.campaign.title );
+		console.log("New Campaign description: " , $scope.campaign.description );
+		console.log("New Campaign country: " , $scope.country );
+		console.log("New Campaign image: " , $scope.image );
+		console.log("New Campaign video: " , $scope.video );
 
 		if ($scope.campaign.active == false ) {
 			$scope.campaign.active = 0;
@@ -258,11 +287,11 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 							campaignId: tempId,		//$scope.campaigns.length,
   							title: $scope.campaign.title, 
   							description: $scope.campaign.description, 
-  							launch: $scope.campaign.launch, 
-  							end: $scope.campaign.drawing,
-  							country: $rootScope.country,
-  							image: $rootScope.image,
-  							video: $rootScope.video,
+  							launch: $scope.launchDate, 
+  							end: $scope.endDate,
+  							country: $scope.country,
+  							image: $scope.image,
+  							video: $scope.video,
   							clicks: 0
   							}
 
@@ -271,8 +300,8 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 		.success(function(data) {
 			console.log("CampaignCreateController.created campaign details",data);
 			$location.path("/campaign");
-		}); 
-		$location.path("/campaign");
+		});
+		$location.path("/campaign");  
 	}
 	
 	
