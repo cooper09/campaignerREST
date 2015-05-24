@@ -103,16 +103,22 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	
 	// launch date change handler
 	$scope.onLaunchDateChanged = function (dateString) {
-		console.log("onLaunchDateChanged: " + dateString );
+		//console.log("onLaunchDateChanged: " + dateString );
 		var newLaunchDate = new Date(dateString);
-		$scope.campaign.launch = newLaunchDate.getTime()/1000;
+		//$scope.campaign.launch = newLaunchDate.getTime()/1000;
+		$scope.launchDate = newLaunchDate;
+
+		//alert("onLaunchDateChanged: " + $scope.launchDate );
 	}
 	
 	// drawing date change handler
 	$scope.onDrawingDateChanged = function (dateString) {
-		console.log("onLaunchDateChanged:", dateString);
-		var newDrawingDate = new Date(dateString);
-		$scope.campaign.drawing = newDrawingDate.getTime()/1000;
+		//console.log("onLaunchDateChanged:", dateString);
+		var newEndDate = new Date(dateString);
+		
+		$scope.endDate = newEndDate;
+
+		//alert("onLaunchDateChanged: " + $scope.endDate );
 	}
 	
 	$scope.changeCountry = function (selected) {
@@ -139,16 +145,17 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	// save campaign method
 	$scope.saveItem = function(campaign)
 	{   
-		console.log("OK here's the campaign we're updating: ", $scope.country );		
-		//alert("saveItem saving image: " + $scope.image);
+		console.log("OK here's the campaign we're updating launchDate: " + campaign.launch + " and end date: " + $scope.launchDate );		
+		var launch_date = $filter('date')(new Date($scope.launchDate), 'MM/dd/yyyy');
+		var end_date = $filter('date')(new Date($scope.endDate), 'MM/dd/yyyy');
 		var campId = $scope.campaignId;
 
 		var updateObj = { 
 			campaignId: campId,
 			title: $scope.campaign.title,
 			description: $scope.campaign.description,
-			launch: $scope.launchDate,
-			end: $scope.drawingDate,
+			launch: launch_date,
+			end: end_date,
 			country: $scope.country,
 			image: $scope.image,
 			video: $scope.video,
@@ -156,7 +163,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 		}
 
 		campaignFactory.update(updateObj).success(function(data) {
-			console.log("updated campaign ",data);
+			console.log("CampaignDetailsController - updated campaign ",data);
 			$location.path("/campaign");
 		});
 	}
@@ -276,6 +283,9 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 		console.log("New Campaign image: " , $scope.image );
 		console.log("New Campaign video: " , $scope.video );
 
+		var launch_date = $filter('date')(new Date($scope.launchDate), 'MM/dd/yyyy');
+		var end_date = $filter('date')(new Date($scope.endDate), 'MM/dd/yyyy');
+
 		if ($scope.campaign.active == false ) {
 			$scope.campaign.active = 0;
 		}
@@ -287,8 +297,8 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 							campaignId: tempId,		//$scope.campaigns.length,
   							title: $scope.campaign.title, 
   							description: $scope.campaign.description, 
-  							launch: $scope.launchDate, 
-  							end: $scope.endDate,
+  							launch: launch_date, 
+  							end: end_date,
   							country: $scope.country,
   							image: $scope.image,
   							video: $scope.video,
