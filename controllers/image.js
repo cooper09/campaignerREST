@@ -82,30 +82,78 @@ imageControllers.controller('ImageDetailsController', ['$rootScope','$scope','$h
 }]);
 
 /*
-	ImageCreateController
+	ImageCreateController - Creating an image consists of uploading the chosen image and to its AWS bucket then creating a document in mongo database
 */
 imageControllers.controller('ImageCreateController', ['$scope', '$http','$location', function($scope, $http, $location) {
 	$scope.sectionName = "Image";
-	$scope.saveButtonLabel = "SAVE";
-	$scope.hasDeleteButton = false;
+	//$scope.saveButtonLabel = "SAVE";
+	//$scope.hasDeleteButton = false;
+	$scope.hasSaveButton = false;
 	
 	$scope.image = new Image();
 	
-	console.log("imageCreateController - new image: ", $scope.image.data );
 	// save method
 	$scope.saveItem = function(){
 		console.log("TEST - ImageController - creating image - label: ", $scope.image.data.label );
 		//console.log("ImageController - creating image - data label: ", $scope.image.data.label);
 
-		$http.post(endpoint()+'image/', $scope.image.data).
-		/*$http.post(endpoint()+'new_image.php?image=test.jpg'). */
+/*		$http.post(endpoint()+'image/', $scope.image.data).
+
 		success(function(data) {
 			console.log("ImageController - created image details",data);
 			$location.path("/image");
 			
-		});
+		}); */
 	}
+
+	//AWS image upload
+	//Angular upload Function  
+$scope.uploadFile = function(files,type) {
+   console.log("Image upload file type: ", files );
+
+    var file =  files[0];
+    var filename = files[0].name;
+
+    alert("current number of images: " + $scope.images.length );
+    var imageId = $scope.images.length + 1;
+    var label = document.getElementById('imagelabel').value;
+    console.log("file label: " + label );
+    var location = "https://s3-us-west-2.amazonaws.com/polyimages/"+ filename;
+
+    AWS.config.update({
+        accessKeyId: "AKIAJ7C7LFEZRSDM7BMA",
+        secretAccessKey: "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"
+    });
+
+    var bucket = new AWS.S3({params: {Bucket: 'polyimages'}});
+
+    var results = document.getElementById('results');
+
+  
+      if (file) {
+      var params = {Key: file.name, ContentType: file.type, Body: file};
+        bucket.upload(params, function (err, data) {
+          console.log(err);
+          results.innerHTML = err ? 'ERROR!' : 'UPLOADED.';
+      
+        });  
+
+       var imageObj = { 
+                    'imageId' : imageId, 
+                    'label':  label,
+                    'location': location
+                  }
+
+        $http.post(endpoint()+'image/', imageObj).success(function(data) {
+			console.log("ImageController - created image details",data);
+			$location.path("/image");
+			
+		})
+      } else {
+        results.innerHTML = 'Nothing to upload.';
+	  }
+   }//end uploadFile
 	
-}]);
+}]);//end ImageCreateController
 
 
