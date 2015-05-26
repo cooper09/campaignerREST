@@ -74,8 +74,7 @@ $scope.uploadFile = function(files,type) {
    }//end uploadFile
 
  //Angular upload video Function  
-$scope.uploadVideo = function(files,currentId) {
-    console.log("file type: ", files[0].name );
+$scope.uploadVideo = function(files,type) {
 
     var file =  files[0];
     var filename = files[0].name;

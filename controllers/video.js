@@ -104,35 +104,67 @@ videoControllers.controller('VideoDetailsController', ['$rootScope','$scope','$h
 */
 videoControllers.controller('VideoCreateController', ['$scope', '$http','$location', function($scope, $http, $location) {
 	$scope.sectionName = "video";
-	$scope.saveButtonLabel = "SAVE";
+	//$scope.saveButtonLabel = "SAVE";
+	$scope.hasSaveButton = false;
 	$scope.hasDeleteButton = false;
 	
 	$scope.video = new Video();
-	
-	console.log("VideoCreateController - new Video: ", $scope.video.data );
+	alert("At least lets get this far...");
+	console.log("VideoCreateController - new Video: ", $scope.video );
 	// save method
 	$scope.saveItem = function(){
-		console.log("TEST - VideoController - creating Video - id: ", $scope.video.currentId );
+		console.log("TEST - VideoController - creating Video - id: ", $scope.video.videoId );
 		console.log("TEST - VideoController - creating Video - label: ", $scope.video.label );
 		console.log("TEST - VideoController - creating Video - location: ", $scope.video.location );
+	}//end saveItem
+	
+		//AWS image upload
+	//Angular upload Function  
+$scope.uploadVideo = function(files,type) {
+   console.log("Video upload file type: ", files );
 
-		var videoObj = { 
-							videoId: currentId,		//$scope.campaigns.length,
-  							label: $scope.campaign.label, 
-  							location: "https://s3-us-west-2.amazonaws.com/polyvideo/"+ "test.jpg", 
-  							clicks: "0"
-  							}
+    var file =  files[0];
+    var filename = files[0].name;
 
-		//console.log("VideoController - creating Video - data label: ", $scope.Video.data.label);
+    alert("current number of videos: " + $scope.videos.length );
+    var videoId = $scope.videos.length + 1;
+    var label = document.getElementById('videolabel').value;
+    console.log("file label: " + label );
+    var location = "https://s3-us-west-2.amazonaws.com/polyvideo/"+ filename;
 
-	/*	$http.post(endpoint()+'Video/', $scope.video.data).
-		success(function(data) {
-			console.log("VideoController - created Video details",data);
+    AWS.config.update({
+        accessKeyId: "AKIAJ7C7LFEZRSDM7BMA",
+        secretAccessKey: "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"
+    });
+
+    var bucket = new AWS.S3({params: {Bucket: 'polyvideo'}});
+
+    var results = document.getElementById('results');
+
+  
+      if (file) {
+      var params = {Key: file.name, ContentType: file.type, Body: file};
+        bucket.upload(params, function (err, data) {
+          console.log(err);
+          results.innerHTML = err ? 'ERROR!' : 'UPLOADED.';
+      
+        });  
+
+       var videoObj = { 
+                    'videoId' : videoId, 
+                    'label':  label,
+                    'location': location
+                  }
+
+        $http.post(endpoint()+'video/', videoObj).success(function(data) {
+			console.log("VideoController - created video details",data);
 			$location.path("/video");
 			
-		}); */
-	}
-	
+		})
+      } else {
+        results.innerHTML = 'Nothing to upload.';
+	  }
+   }//end uploadFile
 }]);//end VideoCreateController
 
 
