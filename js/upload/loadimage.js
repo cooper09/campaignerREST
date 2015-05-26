@@ -1,6 +1,6 @@
 
-function loadUp($rootScope, $scope, $http ) {
-
+function loadUp2($rootScope, $scope, $http ) {
+  alert('LOAD UP!!!');
    $scope.$on('image-loaded', function(event, args) {
     console.log("We have our image:  ", $rootScope.image );
     //var image = dataFactory.getImage();
