@@ -22,29 +22,20 @@ angular.module('mainApp')
 
     		imageFactory.new = function(imageId) {   
                 alert("imageFactory - new: " + imageId ); 			
-            	return $http.post(endpoint() + 'images/' + imageId );
+            	return $http.post(endpoint() + 'image/' + imageId );
        		}
 
 		    imageFactory.deleteItem = function(imageId) {
                 console.log("imageFactory - delete: " , imageId );
-            	return $http.get(endpoint() + 'delete_image.php?id=' + imageId );
+            	return $http.delete(endpoint() + 'image/' + imageId );
 
-        	}
-
-		    imageFactory.upload =  function(imageId) {
-                // cooper s - collec all the current image data for the update
-                console.log("imageFactory - uploading image: " , imageId );
-                //var imageName = "testimage1";
-
-            	return $http.post(endpoint() + imageId + "/detail");
         	}
 
             //cooper s - the only image data that can change is the label, the assigned images are uploaded independantly
-             imageFactory.update =  function(imageId, image) {
-                // cooper s - collec all the current campaign data for the update
-                console.log("ImageFactory.update: ", image.data );
-
-                return $http.post(endpoint() + 'image/' + imageId + '/' + image.data.label , image.data, {} );
+             imageFactory.update =  function(image) {
+                console.log("ImageFactory.update: ", image );
+                var imageId = image.imageId;
+                return $http.put(endpoint() + 'image/' + imageId, image, {} );
             }
 
 		    return imageFactory;

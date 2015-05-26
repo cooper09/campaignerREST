@@ -43,7 +43,6 @@ imageControllers.controller('ImageListController', ['$scope', 'imageFactory', fu
 */
 
 imageControllers.controller('ImageDetailsController', ['$rootScope','$scope','$http','imageFactory', '$routeParams', '$location', function($rootScope, $scope, $http, imageFactory, $routeParams, $location) {	
-//imageControllers.controller('ImageDetailsController', ['$scope', '$http','$routeParams','$location', function($scope, $http, $routeParams, $location) {
 	$scope.sectionName = "Image";
 	$scope.saveButtonLabel = "UPDATE";
 	$scope.hasDeleteButton = true;
@@ -51,27 +50,37 @@ imageControllers.controller('ImageDetailsController', ['$rootScope','$scope','$h
 	// TO BE IMPLEMENTED
 	// delete image method
 	$scope.deleteItem = function(image){
-		console.log("deleteItem: " + image.data.label );
-		imageFactory.deleteItem(image.data.imageId).success(function(data) {
+		console.log("deleteItem: " + image.imageId + " image: " , image.label );
+		imageFactory.deleteItem(image.imageId).success(function(data) {
 			console.log("deleted image ",data);
 			$location.path("/image");
 		});
 	}
 	
+	//Note any changes to the form
+
 	
 	// save image method
 	$scope.saveItem = function(image)
 	{   
-		console.log("imageDetailsController - update item: " , image.data.imageId );
-
-		var thisId = image.data.imageId;
+		console.log("imageDetailsController - update item: " , image.imageId );
+		console.log("imageDetailsController - label: " , image.label );
+		console.log("imageDetailsController - location: " , image.location );
+	/*	var thisId = image.imageId;
 		imageFactory.update(thisId, image ).success(function(data) {
 			console.log("imageDetailsController - updated image ", data);
 			$location.path("/image");
-		}); 
-	}
+		});  */
+		
+		var imgId = image.imageId;
+
+		imageFactory.update(image).success(function(data) {
+			console.log("ImageDetailsController - updated image",data);
+			$location.path("/image");
+		});
+	}//ehd save image
 	
-	imageFactory.getImage($routeParams.itemId).success(function(data) {
+imageFactory.getImage($routeParams.itemId).success(function(data) {
 		console.log("ImageDetailsController - loaded image details: ", data );
 		$scope.image = data;
 		//$scope.itemId = $scope.image.data.imageId;
