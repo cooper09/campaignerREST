@@ -64,16 +64,16 @@ videoControllers.controller('VideoListController', ['$scope', 'videoFactory','$s
 */
 
 videoControllers.controller('VideoDetailsController', ['$rootScope','$scope','$http','videoFactory', '$routeParams', '$location', function($rootScope, $scope, $http, videoFactory, $routeParams, $location) {	
-	$scope.sectionName = "video";
+	$scope.sectionName = "Video";
 	$scope.saveButtonLabel = "UPDATE";
 	$scope.hasDeleteButton = true;
 
 	// TO BE IMPLEMENTED
 	// delete Video method
 	$scope.deleteItem = function(video){
-		console.log("deleteItem: " + video.data.label );
-		videoFactory.deleteItem(video.data.videoId).success(function(data) {
-			console.log("deleted Video ",data);
+		console.log("deleteItem: " + $scope.video.videoId + " label: " , $scope.video.label );
+		videoFactory.deleteItem($scope.video.videoId).success(function(data) {
+			console.log("deleted video: ",data);
 			$location.path("/video");
 		});
 	}
@@ -82,13 +82,19 @@ videoControllers.controller('VideoDetailsController', ['$rootScope','$scope','$h
 	// save Video method
 	$scope.saveItem = function(video)
 	{   
-		console.log("VideoDetailsController - update item: " , video.data.videoId );
+		console.log("VideoDetailsController - update item: " , video  );
 
-		var thisId = video.data.videoId;
-		videoFactory.update(thisId, video ).success(function(data) {
+		var videoId = video.videoId;
+		videoFactory.update(video ).success(function(data) {
 			console.log("VideoDetailsController - updated Video ", data);
 			$location.path("/video");
 		}); 
+
+	/*	var imgId = image.imageId
+		imageFactory.update(image).success(function(data) {
+			console.log("ImageDetailsController - updated image",data);
+			$location.path("/image");
+		}); */
 	}
 	
 	videoFactory.getVideo($routeParams.itemId).success(function(data) {

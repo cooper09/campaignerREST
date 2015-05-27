@@ -50,7 +50,7 @@ imageControllers.controller('ImageDetailsController', ['$rootScope','$scope','$h
 	// TO BE IMPLEMENTED
 	// delete image method
 	$scope.deleteItem = function(image){
-		console.log("deleteItem: " + image.imageId + " image: " , image.label );
+		console.log("deleteItem: " + image + " image: " , image );
 		imageFactory.deleteItem(image.imageId).success(function(data) {
 			console.log("deleted image ",data);
 			$location.path("/image");

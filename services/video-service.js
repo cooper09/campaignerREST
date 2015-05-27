@@ -27,24 +27,23 @@ angular.module('mainApp')
 
 		    videoFactory.deleteItem = function(videoId) {
                 console.log("videoFactory - delete: " , videoId );
-            	return $http.get(endpoint() + 'delete_video.php?id=' + videoId );
+            	return $http.delete(endpoint() + 'video/' + videoId );
 
-        	}
-
-		    videoFactory.upload =  function(videoId) {
-                // cooper s - collec all the current video data for the update
-                console.log("videoFactory - uploading video: " , videoId );
-                //var videoName = "testvideo1";
-
-            	return $http.post(endpoint() + videoId + "/detail");
         	}
 
             //cooper s - the only video data that can change is the label, the assigned videos are uploaded independantly
-             videoFactory.update =  function(videoId, video) {
+            /* videoFactory.update =  function(videoId, video) {
                 // cooper s - collec all the current campaign data for the update
-                console.log("videoFactory.update: ", video.data );
+                console.log("videoFactory.update: ", video );
 
-                return $http.post(endpoint() + 'video/' + videoId + '/' + video.data.label , video.data, {} );
+                return $http.put(endpoint() + 'video/' + videoId + '/' + video.data, {} );
+            }
+        */
+            videoFactory.update =  function(video) {
+                console.log("VideoFactory.update: ", video );
+                var videoId = video.videoId;
+                 console.log("VideoFactory.update id: ", videoId );
+                return $http.put(endpoint() + 'video/' + videoId, video, {} );
             }
 
 		    return videoFactory;
