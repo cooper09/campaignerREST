@@ -115,7 +115,6 @@ videoControllers.controller('VideoCreateController', ['$scope', '$http','$locati
 	$scope.hasDeleteButton = false;
 	
 	$scope.video = new Video();
-	alert("At least lets get this far...");
 	console.log("VideoCreateController - new Video: ", $scope.video );
 	// save method
 	$scope.saveItem = function(){
@@ -132,7 +131,6 @@ $scope.uploadVideo = function(files,type) {
     var file =  files[0];
     var filename = files[0].name;
 
-    alert("current number of videos: " + $scope.videos.length );
     var videoId = $scope.videos.length + 1;
     var label = document.getElementById('videolabel').value;
     console.log("file label: " + label );

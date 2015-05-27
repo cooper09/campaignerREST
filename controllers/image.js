@@ -123,7 +123,6 @@ $scope.uploadFile = function(files,type) {
     var file =  files[0];
     var filename = files[0].name;
 
-    alert("current number of images: " + $scope.images.length );
     var imageId = $scope.images.length + 1;
     var label = document.getElementById('imagelabel').value;
     console.log("file label: " + label );
