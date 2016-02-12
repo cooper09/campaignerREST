@@ -15,6 +15,7 @@ var selectControllers = angular.module('selectControllers', []);
     //  may 2015
 
 var campaignArr = new Array();
+var newCampaign;
 
 selectControllers.controller('countryController', ['$rootScope','$scope', function($rootScope, $scope ) {
    
@@ -25,8 +26,14 @@ selectControllers.controller('countryController', ['$rootScope','$scope', functi
     var countryArr = new Array();
     var countryIds = new Array();
 
-
+    
     var campaignIdx = $rootScope.campaignId - 1;  //offset by 1 since javascript arrays begin indexing at 0
+
+    if ( isNaN(campaignIdx) ) {
+        newCampaign = true;
+        campaignIdx = 0;
+    }
+
     campaignArr = $scope.campaigns;
 
     for ( var i=0 ; i <  $scope.countries.length ; i++) {
@@ -39,13 +46,17 @@ selectControllers.controller('countryController', ['$rootScope','$scope', functi
         $scope.options = options;
         $scope.selectedOption = 0; 
 //check to see if we have our campaign
-
-   for ( var i=0 ; i <  $scope.countries.length ; i++) {
-        if (countryArr[i].country == campaignArr[campaignIdx].country ) {
-            $scope.selectedOption = i;
-        }
-    }  
-
+    if ( newCampaign ) {
+         $scope.selectedOption = 0;     
+         $rootScope.country = countryArr[0].country;
+    } else {
+       for ( var i=0 ; i <  $scope.countries.length ; i++) {
+            if (countryArr[i].country == campaignArr[campaignIdx].country ) {
+                $scope.selectedOption = i;
+                $rootScope.country = countryArr[i].country;
+            }
+        }  
+    }//end if
     //capture new selection   
                 $scope.$watch('selectedOption', function(newValue, oldValue) {
                     // handle selection change ...
@@ -57,6 +68,7 @@ selectControllers.controller('countryController', ['$rootScope','$scope', functi
                         if ( country ==  i) {
                             console.log("countryController - sending country: " + countryIds[i].country );
                             $scope.country  = countryIds[i].country;
+                            $rootScope.country = countryIds[i].country;
                         } //end if          
                     }//end for loop.. 
 
@@ -89,13 +101,21 @@ selectControllers.controller('imageController', ['$rootScope','$scope', function
         $scope.options = options;
         $scope.selectedOption = 0; 
         console.log("Image selected option: ", $scope.options );
+
+
 //check to see if we have our campaign
+if ( newCampaign ) {
+     $scope.selectedOption = 0;     
+     $rootScope.image = imageArr[0].location;
+} else {
     for ( var i=0 ; i <  $scope.images.length ; i++) {
         if (imageArr[i].location == campaignArr[campaignIdx].image ) {
             $scope.selectedOption = i;
+            $rootScope.image = imageArr[i].location;
         }
     }
-    
+}//end if
+
   $scope.$watch('selectedOption', function(newValue, oldValue) {
     // handle selection change ...
     
@@ -104,6 +124,7 @@ selectControllers.controller('imageController', ['$rootScope','$scope', function
             for ( var i=0 ; i <  imageArr.length ; i++) {
                         if ( image ==  i) {
                             $scope.image  =  imageArr[i].label;
+                            $rootScope.image = imageArr[i].location;
                         } //end if          
                     }//end for loop..
 
@@ -133,14 +154,18 @@ selectControllers.controller('videoController', ['$rootScope','$scope', function
     // make sure the selector get the final options
         $scope.options = options;
         $scope.selectedOption = 0; 
-//check to see if we have our campaign
-     for ( var i=0 ; i <  $scope.videos.length ; i++) {
-        
-        if (videoArr[i].location == campaignArr[campaignIdx].video ) {
-            $scope.selectedOption = i;
-        }
-    }//end for loop
-
+    if ( newCampaign ) {
+             $scope.selectedOption = 0;
+             $rootScope.video = videoArr[0].location;
+        } else {
+             for ( var i=0 ; i <  $scope.videos.length ; i++) {
+                
+                if (videoArr[i].location == campaignArr[campaignIdx].video ) {
+                    $scope.selectedOption = i;
+                    $rootScope.video = videoArr[i].location;
+                }
+            }//end for loop
+        }//end if 
 
   $scope.$watch('selectedOption', function(newValue, oldValue) {
     // handle selection change ...
@@ -151,9 +176,9 @@ selectControllers.controller('videoController', ['$rootScope','$scope', function
             for ( var i=0 ; i <  videoArr.length ; i++) {
                         if ( video ==  i) {
                             $scope.video  =  videoArr[i].label;
+                            $rootScope.video = videoArr[i].location;
                         } //end if          
                     }//end for loop..
-
-    });//end watch selectedOption 
+        });//end watch selectedOption 
 
 }]);// End Video Controller

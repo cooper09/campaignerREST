@@ -42,6 +42,7 @@ campaignControllers.controller('CampaignListController', ['$scope', 'campaignFac
 	$scope.createNewLink = "#/new/campaign";
 
 	$scope.status;
+	$scope.onViewLoad();
 	
 	// new campaign method
 	$scope.newCampaign = function()
@@ -173,6 +174,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 
 campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
 		// get campaign from response
+
 		$scope.campaign = data;
 		$scope.campaignId = data[0].campaignId;
 		// set drawing and launch dates on scope
@@ -188,6 +190,7 @@ campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
 		$scope.campaign.video = data[0].video;
 		$scope.campaign.clicks = data[0].clicks;
 
+		//$scope.selectedOption.country = 2;
 	// now that we have our campaign set it to root scope 
 	//	dataFactory.setCampaign($scope.campaign);
 
@@ -224,7 +227,7 @@ campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
 	• save new campaign
 */
 
-campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope', '$http','$location', function($scope, $rootScope, $http, $location) {
+campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope', '$http','$location','$filter', function($scope, $rootScope, $http, $location, $filter) {
 	
 	
 	console.log("CampaignCreateController - creating new campaign");

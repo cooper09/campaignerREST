@@ -10,7 +10,8 @@ var mainApp = angular.module('mainApp', [
   'imageControllers', 
   'legalControllers',
   'videoControllers',
-  'selectControllers'
+  'selectControllers',
+  'viewControllers'
 ]);
 
 mainApp.config(['$routeProvider', function($routeProvider) {
@@ -133,6 +134,9 @@ mainApp.controller('testController', ['$scope', '$rootScope', '$filter', 'campai
 		console.log("I've been clicked...");
 	}
 // test out broadcasting - see how this works...
+	$scope.testView = function() {
+		alert("View me, Baby...");
+	}
 
 	$scope.startScanner = function() {
 		console.log("start broadcast...");
@@ -161,6 +165,7 @@ mainApp.controller('testController', ['$scope', '$rootScope', '$filter', 'campai
 		return days;
 	}//end CreateDictionary
 
+	
 }]);//end test controller 
 
 mainApp.controller('dataController', ['$scope','$http', function($scope, $http ) {
