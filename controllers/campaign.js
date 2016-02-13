@@ -16,6 +16,7 @@ var Campaign = function()
 	this.campaignId = null;
 	this.title = "untitled campaign";
 	this.description = "campaign description";
+	this.budget = "campaign budget";
 	this.launch = new Date();
 	this.end = new Date();
 	this.country = null;
@@ -63,6 +64,7 @@ campaignControllers.controller('CampaignListController', ['$scope', 'campaignFac
 		return '<div><a href="#/campaign/'+campaign.data.campaignId+'">'
 		+campaign.data.title+'</a></div>'+
 		'<div>'+campaign.data.description+'</div>'+
+		'<div>'+campaign.data.budget+'</div>'+
 		'<div>Launch: '+campaign.data.launch+'</div>'+
 		'<div>Drawing: '+campaign.data.drawing+'</div>'+
 		'<div>Special: '+campaign.data.special.msp+" count:"+campaign.data.special.count+'</div>'+
@@ -155,6 +157,7 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 			campaignId: campId,
 			title: $scope.campaign.title,
 			description: $scope.campaign.description,
+			budget: $scope.campaign.budget,
 			launch: launch_date,
 			end: end_date,
 			country: $scope.country,
@@ -182,6 +185,7 @@ campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
 		//$scope.launchDate = formatDateToString(new Date( $scope.campaign.launch));
 		$scope.campaign.title = data[0].title;
 		$scope.campaign.description = data[0].description;
+		$scope.campaign.budget = data[0].budget;
 		$scope.launchDate = data[0].launch;
 		$scope.endDate = data[0].end;
 		$scope.campaign.country =  data[0].country;
@@ -282,6 +286,7 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 		console.log("New Campaign: " , $scope.campaign );
 		console.log("New Campaign title: " , $scope.campaign.title );
 		console.log("New Campaign description: " , $scope.campaign.description );
+		console.log("New Campaign budget: " , $scope.campaign.budget );
 		console.log("New Campaign country: " , $scope.country );
 		console.log("New Campaign image: " , $scope.image );
 		console.log("New Campaign video: " , $scope.video );
@@ -300,6 +305,7 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 							campaignId: tempId,		//$scope.campaigns.length,
   							title: $scope.campaign.title, 
   							description: $scope.campaign.description, 
+  							budget: $scope.campaign.budget,
   							launch: launch_date, 
   							end: end_date,
   							country: $scope.country,

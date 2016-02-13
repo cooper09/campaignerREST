@@ -1,10 +1,12 @@
 <div>
+
 	<form novalidate>
-		
-		<label>Title</label>
+		<label>Title:</label>
 		<input type="text" ng-model="campaign.title" /><br />
-		<label>Description</label>
+		<label>Description:</label>
 		<input type="text" ng-model="campaign.description" /><br />
+		<label>Budget:</label>
+		<input type="text" ng-model="campaign.budget" /><br />
 		<p></p>
 		<label>Launch:</label>
 		<input type="text" ng-model="launchDate" ng-change="onLaunchDateChanged(launchDate)"/><br />
