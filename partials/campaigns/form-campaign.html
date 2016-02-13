@@ -8,6 +8,17 @@
 		<label>Budget:</label>
 		<input type="text" ng-model="campaign.budget" /><br />
 		<p></p>
+		<label>Segment:</label>
+		<span >
+			<select ng-controller="segmentController"
+				ng-model="selectedOption" 
+				ng-options="segment.label for segment in segments"
+				      ng-change="changeSegment(selectedOption)"
+				      id="Segment"
+				      >
+				    </select>
+				  </span>
+			<p></p>
 		<label>Launch:</label>
 		<input type="text" ng-model="launchDate" ng-change="onLaunchDateChanged(launchDate)"/><br />
 		<p></p>

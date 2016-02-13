@@ -17,6 +17,7 @@ var Campaign = function()
 	this.title = "untitled campaign";
 	this.description = "campaign description";
 	this.budget = "campaign budget";
+	this.segment = "audience segment"
 	this.launch = new Date();
 	this.end = new Date();
 	this.country = null;
@@ -27,7 +28,7 @@ var Campaign = function()
 }
 
 //usefull options
-
+var selectedSegment;
 var selectedCountry;
 var selectedImage;
 var selectedVideo;
@@ -91,14 +92,15 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 	$scope.saveButtonLabel = "UPDATE";
 	$scope.hasDeleteButton = true;
 	$scope.drawingDate;
-	$scope.drawingDate;
 
+	var segments = $scope.segments;
 	var countries = $scope.countries;
 	var images = $scope.images;
 	
 	$scope.$on('campaign-loaded', function(event, args) {
 		//alert("CampaignDetailsController - scope on campaign loaded: " ,   args + " event: "+  $scope.campaign );
 		console.log("CampaignDetailsController - current scope campaign loaded: " ,  $scope.campaignId );
+		$scope.segment = args.segment;
 		$scope.country = args.country;
 		$scope.image = args.image;
 		$scope.video = args.video;
@@ -123,6 +125,12 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 
 		//alert("onLaunchDateChanged: " + $scope.endDate );
 	}
+
+	$scope.changeSegment = function (selected) {
+		console.log('changeSegment : ', selected );
+		$scope.segment  = selected.label;
+	}
+
 	
 	$scope.changeCountry = function (selected) {
 		$scope.country  = $scope.countries[selected].country;
@@ -152,12 +160,16 @@ campaignControllers.controller('CampaignDetailsController', ['$rootScope','$scop
 		var launch_date = $filter('date')(new Date($scope.launchDate), 'MM/dd/yyyy');
 		var end_date = $filter('date')(new Date($scope.endDate), 'MM/dd/yyyy');
 		var campId = $scope.campaignId;
+		var segment = $scope.segment;
+
+		console.log("campaignDetailsController - saveItem segments: " + $scope.segment );
 
 		var updateObj = { 
 			campaignId: campId,
 			title: $scope.campaign.title,
 			description: $scope.campaign.description,
 			budget: $scope.campaign.budget,
+			segment: $scope.segment,
 			launch: launch_date,
 			end: end_date,
 			country: $scope.country,
@@ -186,6 +198,7 @@ campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
 		$scope.campaign.title = data[0].title;
 		$scope.campaign.description = data[0].description;
 		$scope.campaign.budget = data[0].budget;
+		$scope.campaign.segment = data[0].segment;
 		$scope.launchDate = data[0].launch;
 		$scope.endDate = data[0].end;
 		$scope.campaign.country =  data[0].country;
@@ -287,6 +300,7 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 		console.log("New Campaign title: " , $scope.campaign.title );
 		console.log("New Campaign description: " , $scope.campaign.description );
 		console.log("New Campaign budget: " , $scope.campaign.budget );
+		console.log("New Campaign segment: " , $scope.segment );
 		console.log("New Campaign country: " , $scope.country );
 		console.log("New Campaign image: " , $scope.image );
 		console.log("New Campaign video: " , $scope.video );
@@ -306,6 +320,7 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
   							title: $scope.campaign.title, 
   							description: $scope.campaign.description, 
   							budget: $scope.campaign.budget,
+  							segment: $scope.segment,
   							launch: launch_date, 
   							end: end_date,
   							country: $scope.country,
