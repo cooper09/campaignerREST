@@ -19,7 +19,7 @@ var newCampaign;
 
 
 selectControllers.controller('segmentController', ['$rootScope','$scope', function($rootScope, $scope ) {
-   
+   console.log("segmentController - getting our selector prepped");
    
 
     $scope.selectedOption = null;
@@ -45,29 +45,25 @@ selectControllers.controller('segmentController', ['$rootScope','$scope', functi
 
      var campaignIdx = $rootScope.campaignId;  //offset by 1 since javascript arrays begin indexing at 0
 
-      /*  if ( isNaN(campaignIdx) ) {
+        if ( isNaN(campaignIdx) ) {
             newCampaign = true;
             campaignIdx = 0;
-        } */
+            $scope.selectedOption =  $scope.segments[0];
+        } 
 
           campaignArr = $scope.campaigns;
 
     console.log("segmentController - campaigns: " + campaignArr  );
 
     for ( var i=0 ; i <  campaignArr.length ; i++) {
-        console.log('campaign index: '+  campaignArr[i].campaignId + ' looking for index: ' + campaignIdx);
-
-
       if ( campaignArr[i].campaignId == campaignIdx ) {
-            console.log("segmentController - Found current campaign segment: " + campaignArr[i].segment );
             for ( j=0; j < $scope.segments.length ; j++ ) {
-             
               if ( $scope.segments[j].label == campaignArr[i].segment) {
                      $scope.selectedOption =  $scope.segments[j];
               };//end inner if*/
           }//end for 
         }//end iff 
-    } 
+    }//end outer for
 
     console.log("segmentController - current segment: " , $scope.selectedOption);
     //$scope.selectedOption =  $scope.segments[0]; //$rootScope.currentSegment;
@@ -75,9 +71,10 @@ selectControllers.controller('segmentController', ['$rootScope','$scope', functi
     //capture new selection   
                 $scope.$watch('selectedOption', function(newValue, oldValue) {
                     // handle selection change ...
-                    console.log("segmentController - selection: " + $scope.selectedOption );
+                    console.log("segmentController - selection: " , $scope.selectedOption );
                     
                     $scope.segment = $scope.selectedOption.label;
+                    $rootScope.segment = $scope.selectedOption.label;
                     //set current campaigns tier3 msp to new selection
                     console.log("selectController - current segment: " + $scope.segment );
                 });//end watch selectedOption   */

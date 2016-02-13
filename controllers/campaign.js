@@ -247,7 +247,7 @@ campaignFactory.getCampaign( $routeParams.itemId ).success(function(data) {
 campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope', '$http','$location','$filter', function($scope, $rootScope, $http, $location, $filter) {
 	
 	
-	console.log("CampaignCreateController - creating new campaign");
+	console.log("CampaignCreateController - creating new campaign: " + $rootScope.segment );
 	$scope.sectionName = "Campaign";
 	$scope.saveButtonLabel = "SAVE";
 	$scope.hasDeleteButton = false;
@@ -255,12 +255,6 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 	// create empty campaign
 	$scope.campaign = new Campaign();
 
-	/* format text based display dates
-	var displayLaunchDate = formatDate($scope.campaign.launch);
-	var displayDrawingDate = formatDate($scope.campaign.drawing);
-
-	$scope.campaign.launch = displayLaunchDate;
-	$scope.campaign.end = displayDrawingDate; */
 
 	//Lets start with default dates
 	var today = new Date();
@@ -290,6 +284,9 @@ campaignControllers.controller('CampaignCreateController', ['$scope','$rootScope
 
 	// save method
 	$scope.saveItem = function(){
+
+		console.log("CampaignCreateController - saveItem scope.segment: " + $scope.segment + " rootscope.segment: " + $rootScope.segment );
+
 
 		/*var utcDate1 = new Date( $scope.campaign.launch);
 		var utcDate2 = new Date( $scope.campaign.drawing);
